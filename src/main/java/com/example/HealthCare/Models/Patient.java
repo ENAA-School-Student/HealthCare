@@ -1,0 +1,30 @@
+package com.example.HealthCare.Models;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
+import java.util.List;
+
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class Patient {
+    @Id
+    private int id;
+    private String nom;
+    private String prenom;
+    private String email;
+    private String telephone;
+    private LocalDate dateNaissance;
+
+    @OneToMany(mappedBy = "patient")
+    private List<RenderVous> renderVousList;
+
+    @OneToOne(mappedBy = "patient")
+    private DossierMedical dossierMedical;
+
+}
