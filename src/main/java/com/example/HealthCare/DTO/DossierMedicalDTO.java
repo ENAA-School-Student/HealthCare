@@ -1,6 +1,6 @@
-package com.example.HealthCare.Models;
+package com.example.HealthCare.DTO;
 
-import jakarta.persistence.*;
+import com.example.HealthCare.Models.Patient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,21 +8,13 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class DossierMedical {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+@NoArgsConstructor
+@AllArgsConstructor
+public class DossierMedicalDTO {
     private String diagnostic;
     private String observations;
     private LocalDate dateCreation;
-
-    @OneToOne
-    @JoinColumn(name = "patient_id")
     private Patient patient;
 }
