@@ -15,12 +15,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateRendezVousDTO {
-    @NotBlank
+    @NotBlank(message = "dateRendezVous is mandatory")
     private LocalDate dateRendezVous;
-    @NotBlank
+    @NotBlank(message = "statut is mandatory")
     private String statut;
-    @NotBlank
+    @NotBlank(message = "medecinId is mandatory")
     private int medecinId;
-    @NotBlank
+    @NotBlank(message = "patientId is mandatory")
     private int patientId;
 }

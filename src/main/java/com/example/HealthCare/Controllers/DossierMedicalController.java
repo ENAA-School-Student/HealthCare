@@ -7,6 +7,7 @@ import com.example.HealthCare.DTO.DossierMedicalDTO;
 import com.example.HealthCare.DTO.RendezVousDTO;
 import com.example.HealthCare.Models.DossierMedical;
 import com.example.HealthCare.Services.DossierMedicalService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,18 +23,18 @@ public class DossierMedicalController {
 
 
     @PostMapping("/creeUnDossierMedical")
-    public void ajouterDossierMedical(@RequestBody CreateDossieMedicalDTO dossieMedicalDTO){
+    public void ajouterDossierMedical(@RequestBody @Valid CreateDossieMedicalDTO dossieMedicalDTO){
         dossierMedicalService.ajouterDossierMedicalPourPatient(dossieMedicalDTO);
     }
 
 
     @PostMapping("/ajouterDiagnostic/{id}")
-    public DossierMedicalDTO ajouterDiagnostic(@PathVariable int id , @RequestBody String diagnostic){
+    public DossierMedicalDTO ajouterDiagnostic(@PathVariable int id , @Valid @RequestBody String diagnostic){
        return dossierMedicalService.ajouterDiagnostic(id, diagnostic);
     }
 
     @PostMapping("/ajouterObservations/{id}")
-    public DossierMedicalDTO ajouterObservations(@PathVariable int id , @RequestBody String Observations){
+    public DossierMedicalDTO ajouterObservations(@PathVariable int id ,@Valid @RequestBody String Observations){
         return dossierMedicalService.ajouterObservations(id, Observations);
     }
 

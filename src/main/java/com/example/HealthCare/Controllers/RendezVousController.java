@@ -4,6 +4,7 @@ import com.example.HealthCare.DTO.CreateRendezVousDTO;
 import com.example.HealthCare.DTO.RendezVousDTO;
 import com.example.HealthCare.Models.RenderVous;
 import com.example.HealthCare.Services.RendezVousService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class RendezVousController {
 
 
     @PostMapping("/creeUnRendezVous")
-    public void creeRendezVous(@RequestBody CreateRendezVousDTO rendezVousDTO){
+    public void creeRendezVous(@RequestBody @Valid CreateRendezVousDTO rendezVousDTO){
         rendezVousService.creeRendezVous(rendezVousDTO);
     }
 
@@ -48,7 +49,7 @@ public class RendezVousController {
 
 
     @PutMapping("/modifierRendezVousById/{id}")
-    public void modifierRendezVous(@PathVariable int id , @RequestBody CreateRendezVousDTO rendezVousDTO){
+    public void modifierRendezVous(@PathVariable int id , @RequestBody @Valid CreateRendezVousDTO rendezVousDTO){
         rendezVousService.modifierRendezVous(id , rendezVousDTO);
     }
 }

@@ -4,6 +4,7 @@ package com.example.HealthCare.Controllers;
 import com.example.HealthCare.DTO.CreatePatientDTO;
 import com.example.HealthCare.DTO.PatientDTO;
 import com.example.HealthCare.Services.PatientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class PatientController {
 
 
     @PostMapping("/AjouterUnPatient")
-    public void ajouterPatient(@RequestBody CreatePatientDTO patientDTO){
+    public void ajouterPatient(@RequestBody @Valid CreatePatientDTO patientDTO){
         patientService.ajouterPatient(patientDTO);
     }
 
@@ -30,7 +31,7 @@ public class PatientController {
 
 
     @PutMapping("/modifierUnPatient/{id}")
-    public void modifierPatient(@PathVariable int id , @RequestBody CreatePatientDTO patientDTO){
+    public void modifierPatient(@PathVariable int id , @RequestBody @Valid CreatePatientDTO patientDTO){
         patientService.modifierPatient(id,patientDTO);
     }
 

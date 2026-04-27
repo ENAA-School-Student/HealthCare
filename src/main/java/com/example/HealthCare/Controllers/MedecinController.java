@@ -4,6 +4,7 @@ package com.example.HealthCare.Controllers;
 import com.example.HealthCare.DTO.CreateMedecinDTO;
 import com.example.HealthCare.DTO.MedecinDTO;
 import com.example.HealthCare.Services.MedecinService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class MedecinController {
 
 
     @PostMapping("/AjouterMedecine")
-    public void ajouterMedecine(@RequestBody CreateMedecinDTO medecinDTO){
+    public void ajouterMedecine(@RequestBody @Valid CreateMedecinDTO medecinDTO){
         medecinService.ajouterMedecine(medecinDTO);
     }
 
@@ -35,7 +36,7 @@ public class MedecinController {
 
 
     @PutMapping("/modifierMedecine/{id}")
-        public void modifierMedecine(@PathVariable int id , @RequestBody CreateMedecinDTO medecinDTO){
+        public void modifierMedecine(@PathVariable int id , @RequestBody @Valid CreateMedecinDTO medecinDTO){
             medecinService.modifierMedecine(id,medecinDTO);
     }
 

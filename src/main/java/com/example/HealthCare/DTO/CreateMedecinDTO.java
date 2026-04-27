@@ -13,13 +13,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateMedecinDTO {
-    @NotBlank
+    @NotBlank(message = "nom is mandatory")
     private String nom;
-    @NotBlank
+    @NotBlank(message = "telephone is mandatory")
     private String telephone;
-    @NotBlank
+    @NotBlank(message = "Email is mandatory")
     @Email
     private String email;
-    @NotBlank
+    @NotBlank(message = "specialite is mandatory")
     private String specialite;
 }

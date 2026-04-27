@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -15,15 +16,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreatePatientDTO {
-    @NotBlank
+    @NotBlank(message = "nom is mandatory")
     private String nom;
-    @NotBlank
+    @NotBlank(message = "prenom is mandatory")
     private String prenom;
-    @NotBlank
+    @NotBlank(message = "email is mandatory")
     @Email
     private String email;
-    @NotBlank
+    @NotBlank(message = "telephone is mandatory")
     private String telephone;
-    @NotBlank
+    @DateTimeFormat
     private LocalDate dateNaissance;
 }
