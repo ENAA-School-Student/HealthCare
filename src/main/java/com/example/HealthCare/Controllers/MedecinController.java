@@ -4,6 +4,7 @@ package com.example.HealthCare.Controllers;
 import com.example.HealthCare.DTO.CreateMedecinDTO;
 import com.example.HealthCare.DTO.MedecinDTO;
 import com.example.HealthCare.Services.MedecinService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,12 +13,8 @@ import java.util.List;
 @RequestMapping("/api/medecins")
 public class MedecinController {
 
-    private final MedecinService medecinService;
-
-
-    public MedecinController(MedecinService medecinService) {
-        this.medecinService = medecinService;
-    }
+    @Autowired
+    private MedecinService medecinService;
 
 
     @GetMapping("/ListerMedecines")

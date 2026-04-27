@@ -4,6 +4,7 @@ import com.example.HealthCare.DTO.CreateRendezVousDTO;
 import com.example.HealthCare.DTO.RendezVousDTO;
 import com.example.HealthCare.Models.RenderVous;
 import com.example.HealthCare.Services.RendezVousService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,11 +13,8 @@ import java.util.List;
 @RequestMapping("/api/rendezVous")
 public class RendezVousController {
 
-    private final RendezVousService rendezVousService;
-
-    public RendezVousController(RendezVousService rendezVousService) {
-        this.rendezVousService = rendezVousService;
-    }
+    @Autowired
+    private RendezVousService rendezVousService;
 
 
     @PostMapping("/creeUnRendezVous")
@@ -24,20 +22,24 @@ public class RendezVousController {
         rendezVousService.creeRendezVous(rendezVousDTO);
     }
 
+
     @GetMapping("/listerLesRendezVous")
     public List<RendezVousDTO> listerDossierMedical(){
         return rendezVousService.listerRendezVous();
     }
+
 
     @PatchMapping("/annulerRendezVous/{id}")
     public RenderVous annulerRendezVous(@PathVariable int id){
       return  rendezVousService.annulerRendezVous(id);
     }
 
-        @GetMapping("/findRendezVousByMedecine{id}")
-        public RendezVousDTO findRendezVousByMedcine(@PathVariable int id){
+
+    @GetMapping("/findRendezVousByMedecine{id}")
+    public RendezVousDTO findRendezVousByMedcine(@PathVariable int id){
         return rendezVousService.findRendezVousByMedecin(id);
-        }
+    }
+
 
     @GetMapping("/findRendezVousByPatient{id}")
     public RendezVousDTO findRendezVousByPatient(@PathVariable int id){
