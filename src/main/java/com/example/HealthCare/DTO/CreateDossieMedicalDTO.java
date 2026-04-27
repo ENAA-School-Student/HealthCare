@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateDossieMedicalDTO {
+
     private String diagnostic;
     private String observations;
     private LocalDate dateCreation;
