@@ -17,23 +17,23 @@ public class PatientController {
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
     }
-    @PostMapping
+    @PostMapping("/AjouterUnPatient")
     public void ajouterPatient(@RequestBody CreatePatientDTO patientDTO){
         patientService.ajouterPatient(patientDTO);
     }
 
-    @GetMapping
+    @GetMapping("/listerLesPatients")
     public List<PatientDTO> listerPatient(){
         return patientService.listerPatients();
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/modifierUnPatient/{id}")
     public void modifierPatient(@PathVariable int id , @RequestBody CreatePatientDTO patientDTO){
         patientService.modifierPatient(id,patientDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/supprimerUnPatient{id}")
     public void supprimerPatient(@PathVariable int id){
         patientService.supprimerPatient(id);
     }
