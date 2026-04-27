@@ -1,5 +1,6 @@
 package com.example.HealthCare.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,10 +23,12 @@ public class RenderVous {
     private String statut;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "medecine_id")
     private Medecine medecine;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "patient_id")
     private Patient patient;
 }

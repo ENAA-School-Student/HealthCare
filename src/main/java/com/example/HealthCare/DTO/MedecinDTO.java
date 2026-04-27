@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MedecinDTO {
+    
     private String nom;
     private String telephone;
     private String email;

@@ -17,6 +17,6 @@ import java.time.LocalDate;
 public class RendezVousDTO {
     private LocalDate dateRendezVous;
     private String statut;
-    private Medecine medecine;
-    private Patient patient;
+    private MedecinDTO medecine;
+    private PatientDTO patient;
 }

@@ -1,6 +1,7 @@
 package com.example.HealthCare.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class Medecine {
     private String telephone;
     private String email;
     private String specialite;
+
 
     @OneToMany(mappedBy = "medecine")
     private List<RenderVous> renderVousList;

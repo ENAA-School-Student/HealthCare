@@ -20,26 +20,26 @@ public class MedecinController {
     }
 
 
-    @GetMapping
+    @GetMapping("/ListerMedecines")
     public List<MedecinDTO> afficherMedecins(){
-      return medecinService.listerMedecin();
+      return medecinService.listerMedecine();
     }
 
 
-    @PostMapping
-    public void ajouterMedecin(@RequestBody CreateMedecinDTO medecinDTO){
-        medecinService.ajouterMedecin(medecinDTO);
+    @PostMapping("/AjouterMedecine")
+    public void ajouterMedecine(@RequestBody CreateMedecinDTO medecinDTO){
+        medecinService.ajouterMedecine(medecinDTO);
     }
 
-    @DeleteMapping("/{id}")
-    public void supprimerMedecin(@PathVariable int id){
-        medecinService.supprimerMedecin(id);
+    @DeleteMapping("/supprimerMedecine/{id}")
+    public void supprimerMedecine(@PathVariable int id){
+        medecinService.supprimerMedecine(id);
     }
 
 
-    @PutMapping("/{id}")
-        public void modifierMedecin(@PathVariable int id , @RequestBody CreateMedecinDTO medecinDTO){
-            medecinService.modifierMedecin(id,medecinDTO);
+    @PutMapping("/modifierMedecine/{id}")
+        public void modifierMedecine(@PathVariable int id , @RequestBody CreateMedecinDTO medecinDTO){
+            medecinService.modifierMedecine(id,medecinDTO);
     }
 
 }

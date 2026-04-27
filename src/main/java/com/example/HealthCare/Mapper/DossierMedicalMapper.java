@@ -6,7 +6,7 @@ import com.example.HealthCare.DTO.DossierMedicalDTO;
 import com.example.HealthCare.Models.DossierMedical;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface DossierMedicalMapper {
     DossierMedicalDTO toDto(DossierMedical dossierMedical);
     DossierMedical toEntity(CreateDossieMedicalDTO dossierMedicalDTO);

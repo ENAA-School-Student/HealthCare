@@ -16,6 +16,6 @@ import java.time.LocalDate;
 public class CreateRendezVousDTO {
     private LocalDate dateRendezVous;
     private String statut;
-    private Medecine medecine;
-    private Patient patient;
+    private int medecinId;
+    private int patientId;
 }

@@ -24,15 +24,15 @@ public class MedecinService {
     }
 
 
-    public void ajouterMedecin(CreateMedecinDTO medecinDTO){
+    public void ajouterMedecine(CreateMedecinDTO medecinDTO){
         medecinRepository.save(medecinMapper.toEntity(medecinDTO));
     }
 
-    public void supprimerMedecin(int medecinId){
+    public void supprimerMedecine(int medecinId){
         medecinRepository.deleteById(medecinId);
     }
 
-    public List<MedecinDTO> listerMedecin(){
+    public List<MedecinDTO> listerMedecine(){
         List<Medecine> medecineList = medecinRepository.findAll();
       return medecineList
                 .stream()
@@ -44,7 +44,7 @@ public class MedecinService {
               .toList();
     }
 
-    public Medecine modifierMedecin(int medecinId , CreateMedecinDTO medecinDTO){
+    public Medecine modifierMedecine(int medecinId , CreateMedecinDTO medecinDTO){
         Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(()->new RuntimeException("not found with id " + medecinId));
         if(medecine != null){
             medecine.setNom(medecinDTO.getNom());
