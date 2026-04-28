@@ -3,6 +3,7 @@ package com.example.HealthCare.Controllers;
 
 import com.example.HealthCare.DTO.CreatePatientDTO;
 import com.example.HealthCare.DTO.PatientDTO;
+import com.example.HealthCare.Models.Patient;
 import com.example.HealthCare.Services.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class PatientController {
         return patientService.listerPatients();
     }
 
+    @GetMapping("/consulterPatientPar{id}")
+    public PatientDTO consulterPatientParId(@PathVariable int id){
+       return patientService.consulterPatient(id);
+    }
 
     @PutMapping("/modifierUnPatient/{id}")
     public void modifierPatient(@PathVariable int id , @RequestBody @Valid CreatePatientDTO patientDTO){

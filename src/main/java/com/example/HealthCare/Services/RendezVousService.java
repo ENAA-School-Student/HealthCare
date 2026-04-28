@@ -33,7 +33,6 @@ public class RendezVousService {
 
 
     public void creeRendezVous(CreateRendezVousDTO rendezVousDTO){
-
         Patient patient = patientRepository.findById(rendezVousDTO.getPatientId()).orElseThrow(() -> new RuntimeException("Paitent Not Found!!"));
         Medecine medecine = medecinRepository.findById(rendezVousDTO.getMedecinId()).orElseThrow(() -> new RuntimeException("Medecin Not found !!"));
         RenderVous rendezVous = rendezVousMapper.toEntity(rendezVousDTO);

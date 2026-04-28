@@ -57,6 +57,11 @@ public class PatientService {
     }
 
 
+    public PatientDTO consulterPatient(int patientId){
+       Patient patient = patientRepository.findById(patientId).orElseThrow(()-> new RuntimeException("Patient Not Found !!"));
+       return patientMapper.toDto(patient);
+    }
+
     public void supprimerPatient(int patientId){
         patientRepository.deleteById(patientId);
     }
