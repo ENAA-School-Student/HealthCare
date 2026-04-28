@@ -7,6 +7,7 @@ import com.example.HealthCare.Mapper.MedecinMapper;
 import com.example.HealthCare.Models.Medecine;
 import com.example.HealthCare.Repositories.MedecinRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,13 +16,12 @@ import java.util.List;
 public class MedecinService {
 
 
+    @Autowired
     private MedecinRepository medecinRepository;
+    @Autowired
     private MedecinMapper medecinMapper;
 
-    public MedecinService(MedecinRepository medecinRepository, MedecinMapper medecinMapper) {
-        this.medecinRepository = medecinRepository;
-        this.medecinMapper = medecinMapper;
-    }
+
 
 
     public void ajouterMedecine(CreateMedecinDTO medecinDTO){

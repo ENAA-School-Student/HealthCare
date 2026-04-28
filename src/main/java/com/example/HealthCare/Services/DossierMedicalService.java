@@ -39,6 +39,7 @@ public class DossierMedicalService {
         return dossierMedicalMapper.toDto(dossierMedical);
     }
 
+
     public DossierMedicalDTO consulterUnDossierMedical(int dossierMedicalId){
         DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new RuntimeException("Dossier Medical not found !!"));
         return dossierMedicalMapper.toDto(dossierMedical);

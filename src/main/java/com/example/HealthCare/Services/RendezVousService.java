@@ -12,6 +12,7 @@ import com.example.HealthCare.Models.RenderVous;
 import com.example.HealthCare.Repositories.MedecinRepository;
 import com.example.HealthCare.Repositories.PatientRepository;
 import com.example.HealthCare.Repositories.RendezVousRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,17 +21,16 @@ import java.util.List;
 @Service
 public class RendezVousService {
 
-    private final RendezVousMapper rendezVousMapper;
-    private final RendezVousRepository rendezVousRepository;
-    private final PatientRepository patientRepository;
-    private  final MedecinRepository medecinRepository;
+    @Autowired
+    private RendezVousMapper rendezVousMapper;
+    @Autowired
+    private RendezVousRepository rendezVousRepository;
+    @Autowired
+    private PatientRepository patientRepository;
+    @Autowired
+    private MedecinRepository medecinRepository;
 
-    public RendezVousService(RendezVousMapper rendezVousMapper, RendezVousRepository rendezVousRepository, PatientRepository patientRepository, MedecinRepository medecinRepository) {
-        this.rendezVousMapper = rendezVousMapper;
-        this.rendezVousRepository = rendezVousRepository;
-        this.patientRepository = patientRepository;
-        this.medecinRepository = medecinRepository;
-    }
+
 
     public void creeRendezVous(CreateRendezVousDTO rendezVousDTO){
 

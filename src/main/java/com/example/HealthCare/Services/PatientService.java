@@ -6,6 +6,7 @@ import com.example.HealthCare.DTO.PatientDTO;
 import com.example.HealthCare.Mapper.PatientMapper;
 import com.example.HealthCare.Models.Patient;
 import com.example.HealthCare.Repositories.PatientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.core.support.RepositoryMethodInvocationListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,13 +18,12 @@ import java.util.Optional;
 @Service
 public class PatientService {
 
-    private final PatientRepository patientRepository;
-    private final PatientMapper patientMapper;
+    @Autowired
+    private PatientRepository patientRepository;
+    @Autowired
+    private PatientMapper patientMapper;
 
-    public PatientService(PatientRepository patientRepository, PatientMapper patientMapper) {
-        this.patientRepository = patientRepository;
-        this.patientMapper = patientMapper;
-    }
+
 
 
    public void ajouterPatient(CreatePatientDTO patient){
