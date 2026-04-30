@@ -1,8 +1,8 @@
 package com.example.HealthCare.Mapper;
 
 
-import com.example.HealthCare.DTO.CreateRendezVousDTO;
-import com.example.HealthCare.DTO.RendezVousDTO;
+import com.example.HealthCare.DTO.RendezVousRequestDTO;
+import com.example.HealthCare.DTO.RendezVousResponseDTO;
 import com.example.HealthCare.Models.RenderVous;
 import org.mapstruct.Mapper;
 
@@ -10,9 +10,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface RendezVousMapper {
-    RendezVousDTO toDto(RenderVous renderVous);
-    RenderVous toEntity(CreateRendezVousDTO rendezVousDTO);
-    List<RendezVousDTO> toDtoList(List<RenderVous> renderVousList);
+    RendezVousResponseDTO toDto(RenderVous renderVous);
+    RenderVous toEntity(RendezVousRequestDTO rendezVousDTO);
+    List<RendezVousResponseDTO> toDtoList(List<RenderVous> renderVousList);
 
 
 }

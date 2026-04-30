@@ -11,8 +11,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MedecinDTO {
-    
+public class MedecinResponseDTO {
+
+    private int id;
     private String nom;
     private String telephone;
     private String email;

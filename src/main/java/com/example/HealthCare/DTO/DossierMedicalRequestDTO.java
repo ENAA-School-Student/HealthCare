@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateDossieMedicalDTO {
+public class DossierMedicalRequestDTO {
 
     @NotBlank(message = "diagnostic is mandatory")
     private String diagnostic;

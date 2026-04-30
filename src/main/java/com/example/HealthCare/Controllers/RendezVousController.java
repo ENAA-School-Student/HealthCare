@@ -1,7 +1,7 @@
 package com.example.HealthCare.Controllers;
 
-import com.example.HealthCare.DTO.CreateRendezVousDTO;
-import com.example.HealthCare.DTO.RendezVousDTO;
+import com.example.HealthCare.DTO.RendezVousRequestDTO;
+import com.example.HealthCare.DTO.RendezVousResponseDTO;
 import com.example.HealthCare.Models.RenderVous;
 import com.example.HealthCare.Services.RendezVousService;
 import jakarta.validation.Valid;
@@ -19,13 +19,13 @@ public class RendezVousController {
 
 
     @PostMapping("/creeUnRendezVous")
-    public void creeRendezVous(@RequestBody @Valid CreateRendezVousDTO rendezVousDTO){
+    public void creeRendezVous(@RequestBody @Valid RendezVousRequestDTO rendezVousDTO){
         rendezVousService.creeRendezVous(rendezVousDTO);
     }
 
 
     @GetMapping("/listerLesRendezVous")
-    public List<RendezVousDTO> listerDossierMedical(){
+    public List<RendezVousResponseDTO> listerDossierMedical(){
         return rendezVousService.listerRendezVous();
     }
 
@@ -37,19 +37,19 @@ public class RendezVousController {
 
 
     @GetMapping("/findRendezVousByMedecine{id}")
-    public RendezVousDTO findRendezVousByMedcine(@PathVariable int id){
+    public RendezVousResponseDTO findRendezVousByMedcine(@PathVariable int id){
         return rendezVousService.findRendezVousByMedecin(id);
     }
 
 
     @GetMapping("/findRendezVousByPatient{id}")
-    public RendezVousDTO findRendezVousByPatient(@PathVariable int id){
+    public RendezVousResponseDTO findRendezVousByPatient(@PathVariable int id){
         return rendezVousService.findRendezVousByPatient(id);
     }
 
 
     @PutMapping("/modifierRendezVousById/{id}")
-    public void modifierRendezVous(@PathVariable int id , @RequestBody @Valid CreateRendezVousDTO rendezVousDTO){
+    public void modifierRendezVous(@PathVariable int id , @RequestBody @Valid RendezVousRequestDTO rendezVousDTO){
         rendezVousService.modifierRendezVous(id , rendezVousDTO);
     }
 }

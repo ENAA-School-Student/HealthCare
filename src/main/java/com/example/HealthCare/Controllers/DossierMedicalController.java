@@ -1,18 +1,12 @@
 package com.example.HealthCare.Controllers;
 
 
-import com.example.HealthCare.DTO.CreateDossieMedicalDTO;
-import com.example.HealthCare.DTO.CreateMedecinDTO;
+import com.example.HealthCare.DTO.DossierMedicalRequestDTO;
 import com.example.HealthCare.DTO.DossierMedicalDTO;
-import com.example.HealthCare.DTO.RendezVousDTO;
-import com.example.HealthCare.Models.DossierMedical;
 import com.example.HealthCare.Services.DossierMedicalService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.file.attribute.PosixFileAttributes;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/dossierMedical")
@@ -23,7 +17,7 @@ public class DossierMedicalController {
 
 
     @PostMapping("/creeUnDossierMedical")
-    public void ajouterDossierMedical(@RequestBody @Valid CreateDossieMedicalDTO dossieMedicalDTO){
+    public void ajouterDossierMedical(@RequestBody @Valid DossierMedicalRequestDTO dossieMedicalDTO){
         dossierMedicalService.ajouterDossierMedicalPourPatient(dossieMedicalDTO);
     }
 

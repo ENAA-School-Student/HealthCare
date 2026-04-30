@@ -1,10 +1,11 @@
 package com.example.HealthCare.Services;
 
 
-import com.example.HealthCare.DTO.CreateMedecinDTO;
-import com.example.HealthCare.DTO.MedecinDTO;
+import com.example.HealthCare.DTO.MedecinRequestDTO;
+import com.example.HealthCare.DTO.MedecinResponseDTO;
 import com.example.HealthCare.Mapper.MedecinMapper;
 import com.example.HealthCare.Models.Medecine;
+import com.example.HealthCare.Models.Patient;
 import com.example.HealthCare.Repositories.MedecinRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,27 +25,33 @@ public class MedecinService {
 
 
 
-    public void ajouterMedecine(CreateMedecinDTO medecinDTO){
-        medecinRepository.save(medecinMapper.toEntity(medecinDTO));
+    public MedecinResponseDTO ajouterMedecine(MedecinRequestDTO medecinDTO){
+        Medecine medecine =  medecinMapper.toEntity(medecinDTO);
+       return medecinMapper.toDto(medecinRepository.save(medecine));
     }
 
-    public void supprimerMedecine(int medecinId){
-        medecinRepository.deleteById(medecinId);
+    public Boolean supprimerMedecine(int medecinId){
+        Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(()->new RuntimeException("not found with id " + medecinId));
+        if(medecine != null){
+            medecinRepository.deleteById(medecinId);
+            return true;
+        }
+        return false;
     }
 
-    public List<MedecinDTO> listerMedecine(){
+    public List<MedecinResponseDTO> listerMedecine(){
         List<Medecine> medecineList = medecinRepository.findAll();
       return medecineList
                 .stream()
                 .map((medecine)->{
-                    MedecinDTO medecinDTO = medecinMapper.toDto(medecine);
-                    medecinDTO.setTotalRendezVous(medecine.getRenderVousList().size());
-                    return medecinDTO;
+                    MedecinResponseDTO medecinResponseDTO = medecinMapper.toDto(medecine);
+                    medecinResponseDTO.setTotalRendezVous(medecine.getRenderVousList().size());
+                    return medecinResponseDTO;
                 })
               .toList();
     }
 
-    public Medecine modifierMedecine(int medecinId , CreateMedecinDTO medecinDTO){
+    public Medecine modifierMedecine(int medecinId , MedecinRequestDTO medecinDTO){
         Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(()->new RuntimeException("not found with id " + medecinId));
         if(medecine != null){
             medecine.setNom(medecinDTO.getNom());

@@ -13,7 +13,8 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PatientDTO {
+public class PatientResponseDTO {
+    private int id;
     private String nom;
     private String prenom;
     private String email;
@@ -21,4 +22,6 @@ public class PatientDTO {
     private LocalDate dateNaissance;
     private int totalRendezVous;
     private DossierMedical dossierMedical;
+
+
 }

@@ -1,7 +1,5 @@
 package com.example.HealthCare.DTO;
 
-import com.example.HealthCare.Models.Medecine;
-import com.example.HealthCare.Models.Patient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +12,9 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RendezVousDTO {
+public class RendezVousResponseDTO {
     private LocalDate dateRendezVous;
     private String statut;
-    private MedecinDTO medecine;
-    private PatientDTO patient;
+    private MedecinResponseDTO medecine;
+    private PatientResponseDTO patient;
 }

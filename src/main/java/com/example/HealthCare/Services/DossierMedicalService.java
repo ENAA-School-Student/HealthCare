@@ -1,9 +1,8 @@
 package com.example.HealthCare.Services;
 
 
-import com.example.HealthCare.DTO.CreateDossieMedicalDTO;
+import com.example.HealthCare.DTO.DossierMedicalRequestDTO;
 import com.example.HealthCare.DTO.DossierMedicalDTO;
-import com.example.HealthCare.DTO.MedecinDTO;
 import com.example.HealthCare.Mapper.DossierMedicalMapper;
 import com.example.HealthCare.Models.DossierMedical;
 import com.example.HealthCare.Repositories.DossierMedicalRepository;
@@ -20,7 +19,7 @@ public class DossierMedicalService {
     private  DossierMedicalMapper dossierMedicalMapper;
 
 
-    public void ajouterDossierMedicalPourPatient(CreateDossieMedicalDTO dossieMedicalDTO){
+    public void ajouterDossierMedicalPourPatient(DossierMedicalRequestDTO dossieMedicalDTO){
         dossierMedicalRepository.save(dossierMedicalMapper.toEntity(dossieMedicalDTO));
     }
 

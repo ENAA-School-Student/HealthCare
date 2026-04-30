@@ -1,7 +1,5 @@
 package com.example.HealthCare.DTO;
 
-import com.example.HealthCare.Models.Medecine;
-import com.example.HealthCare.Models.Patient;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateRendezVousDTO {
+public class RendezVousRequestDTO {
     @NotBlank(message = "dateRendezVous is mandatory")
     private LocalDate dateRendezVous;
     @NotBlank(message = "statut is mandatory")

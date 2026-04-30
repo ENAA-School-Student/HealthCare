@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreatePatientDTO {
+public class PatientRequestDTO {
     @NotBlank(message = "nom is mandatory")
     private String nom;
     @NotBlank(message = "prenom is mandatory")
