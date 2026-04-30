@@ -68,24 +68,24 @@ src\
 
 # les trois diagrammes UML
 # Diagramme de Classe
-![DiagrammeDeClasse.png](Conception/DiagrammeDeClasse.png)
+![diagramme_de_classe_Modifier.png](Conception/diagramme_de_classe_Modifier.png)
 
 # Diagramme de Cas d'Utilisation
 ![Cas_utilisation.png](Conception/Cas_utilisation.png)
 
 # Diagrammes de Séquence
-exapmle pour ajouter Dossier Medical
+exemple de ajouter Dossier Medical
 
 ![AjouterDossierMedicale_Sequence.png](Conception/AjouterDossierMedicale_Sequence.png)
 
-example pour lister medecins
+exemple de lister medecins
 
 ![ListerPatients_Sequence.png](Conception/ListerPatients_Sequence.png)
 
-example pour supprimer Medecine Par Id
+exemple de supprimer Medecine Par Id
 
 ![SupprimerMedecineById_Sequence.png](Conception/SupprimerMedecineById_Sequence.png)
 
-exemple recherche rendez_vous par patient
+exemple de rendez_vous par patient
 
 ![RendezVousByPatient_Sequence.png](Conception/RendezVousByPatient_Sequence.png)

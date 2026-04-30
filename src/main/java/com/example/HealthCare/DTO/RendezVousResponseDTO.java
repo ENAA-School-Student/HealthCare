@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RendezVousResponseDTO {
+    private int id;
     private LocalDate dateRendezVous;
     private String statut;
     private MedecinResponseDTO medecine;

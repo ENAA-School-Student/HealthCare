@@ -1,7 +1,7 @@
 package com.example.HealthCare.Controllers;
 
 
-import com.example.HealthCare.DTO.MedecinRequestDTO;
+import com.example.HealthCare.DTO.MedecineRequestDTO;
 import com.example.HealthCare.DTO.MedecinResponseDTO;
 import com.example.HealthCare.Services.MedecinService;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class MedecinController {
 
 
     @PostMapping("/AjouterMedecine")
-    public void ajouterMedecine(@RequestBody @Valid MedecinRequestDTO medecinDTO){
+    public void ajouterMedecine(@RequestBody @Valid MedecineRequestDTO medecinDTO){
         medecinService.ajouterMedecine(medecinDTO);
     }
 
@@ -36,7 +36,7 @@ public class MedecinController {
 
 
     @PutMapping("/modifierMedecine/{id}")
-        public void modifierMedecine(@PathVariable int id , @RequestBody @Valid MedecinRequestDTO medecinDTO){
+        public void modifierMedecine(@PathVariable int id , @RequestBody @Valid MedecineRequestDTO medecinDTO){
             medecinService.modifierMedecine(id,medecinDTO);
     }
 

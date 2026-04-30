@@ -1,11 +1,10 @@
 package com.example.HealthCare.Services;
 
 
-import com.example.HealthCare.DTO.MedecinRequestDTO;
+import com.example.HealthCare.DTO.MedecineRequestDTO;
 import com.example.HealthCare.DTO.MedecinResponseDTO;
 import com.example.HealthCare.Mapper.MedecinMapper;
 import com.example.HealthCare.Models.Medecine;
-import com.example.HealthCare.Models.Patient;
 import com.example.HealthCare.Repositories.MedecinRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class MedecinService {
 
 
 
-    public MedecinResponseDTO ajouterMedecine(MedecinRequestDTO medecinDTO){
+    public MedecinResponseDTO ajouterMedecine(MedecineRequestDTO medecinDTO){
         Medecine medecine =  medecinMapper.toEntity(medecinDTO);
        return medecinMapper.toDto(medecinRepository.save(medecine));
     }
@@ -51,7 +50,7 @@ public class MedecinService {
               .toList();
     }
 
-    public Medecine modifierMedecine(int medecinId , MedecinRequestDTO medecinDTO){
+    public Medecine modifierMedecine(int medecinId , MedecineRequestDTO medecinDTO){
         Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(()->new RuntimeException("not found with id " + medecinId));
         if(medecine != null){
             medecine.setNom(medecinDTO.getNom());
