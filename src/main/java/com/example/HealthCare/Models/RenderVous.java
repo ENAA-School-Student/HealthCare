@@ -1,5 +1,6 @@
 package com.example.HealthCare.Models;
 
+import com.example.HealthCare.Enums.RendezVousStatutEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,9 @@ public class RenderVous {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDate dateRendezVous;
-    private String statut;
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "statut")
+    private RendezVousStatutEnum statut;
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "medecine_id")

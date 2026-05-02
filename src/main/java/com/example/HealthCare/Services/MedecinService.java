@@ -50,14 +50,14 @@ public class MedecinService {
               .toList();
     }
 
-    public Medecine modifierMedecine(int medecinId , MedecineRequestDTO medecinDTO){
+    public MedecinResponseDTO modifierMedecine(int medecinId , MedecineRequestDTO medecinDTO){
         Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(()->new RuntimeException("not found with id " + medecinId));
         if(medecine != null){
             medecine.setNom(medecinDTO.getNom());
             medecine.setEmail(medecinDTO.getEmail());
             medecine.setTelephone(medecinDTO.getTelephone());
             medecine.setSpecialite(medecinDTO.getSpecialite());
-            return medecinRepository.save(medecine);
+            return medecinMapper.toDto(medecinRepository.save(medecine));
         }
         return null;
     }

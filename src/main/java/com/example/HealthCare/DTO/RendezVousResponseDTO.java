@@ -1,5 +1,6 @@
 package com.example.HealthCare.DTO;
 
+import com.example.HealthCare.Enums.RendezVousStatutEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 public class RendezVousResponseDTO {
     private int id;
     private LocalDate dateRendezVous;
-    private String statut;
+    private RendezVousStatutEnum statut;
     private MedecinResponseDTO medecine;
     private PatientResponseDTO patient;
 }

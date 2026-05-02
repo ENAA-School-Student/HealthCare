@@ -19,7 +19,7 @@ class PatientServiceTest {
 
 
 
-    PatientRequestDTO patientdto;
+   private PatientRequestDTO patientdto;
    @BeforeEach
    public void setUp(){
        patientdto = new PatientRequestDTO();

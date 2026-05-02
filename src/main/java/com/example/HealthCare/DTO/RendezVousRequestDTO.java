@@ -1,5 +1,6 @@
 package com.example.HealthCare.DTO;
 
+import com.example.HealthCare.Enums.RendezVousStatutEnum;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +17,7 @@ public class RendezVousRequestDTO {
     @NotBlank(message = "dateRendezVous is mandatory")
     private LocalDate dateRendezVous;
     @NotBlank(message = "statut is mandatory")
-    private String statut;
+    private RendezVousStatutEnum statut;
     @NotBlank(message = "medecinId is mandatory")
     private int medecinId;
     @NotBlank(message = "patientId is mandatory")
