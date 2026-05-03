@@ -10,6 +10,7 @@ import com.example.HealthCare.Repositories.MedecinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -60,6 +61,10 @@ public class MedecinService {
             return medecinMapper.toDto(medecinRepository.save(medecine));
         }
         return null;
+    }
+
+    public List<Object[]> findByMedcinNumberRendezVous(){
+        return medecinRepository.findByMedcinNumberRendezVous();
     }
 
 

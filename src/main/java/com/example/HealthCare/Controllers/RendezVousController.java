@@ -5,8 +5,10 @@ import com.example.HealthCare.DTO.RendezVousResponseDTO;
 import com.example.HealthCare.Services.RendezVousService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -50,5 +52,16 @@ public class RendezVousController {
     @PutMapping("/modifierRendezVousById/{id}")
     public void modifierRendezVous(@PathVariable int id , @RequestBody @Valid RendezVousRequestDTO rendezVousDTO){
         rendezVousService.modifierRendezVous(id , rendezVousDTO);
+    }
+
+
+    @GetMapping("/getRendezVousByDateAndMedecinId")
+    public List<RendezVousResponseDTO> getRendezVousByDateAndMedecinId(@RequestParam int id, @RequestParam LocalDate date){
+        return rendezVousService.findRendezVousByGivinDateAndMedecinId(date,id);
+    }
+
+    @GetMapping("/getRendezVousByDateAndPatientId")
+    public List<RendezVousResponseDTO> getRendezVousByDateAndPatientId(@RequestParam int id, @RequestParam LocalDate date){
+        return rendezVousService.findRendezVousByGivinDateAndPatientId(date,id);
     }
 }

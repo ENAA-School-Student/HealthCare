@@ -14,7 +14,9 @@ import com.example.HealthCare.Repositories.RendezVousRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -80,4 +82,20 @@ if(renderVous != null){
 }
 return  null;
     }
+
+
+
+
+    public List<RendezVousResponseDTO> findRendezVousByGivinDateAndMedecinId(LocalDate date , int medcinId){
+      return rendezVousMapper.toDtoList(rendezVousRepository.rendezVousByMedecinAndDate(date,medcinId));
+    }
+
+    public List<RendezVousResponseDTO> findRendezVousByGivinDateAndPatientId(LocalDate date , int patientId){
+        return rendezVousMapper.toDtoList(rendezVousRepository.rendezVousByPatientAndDate(patientId,date));
+    }
+
+
+
+
+
 }
