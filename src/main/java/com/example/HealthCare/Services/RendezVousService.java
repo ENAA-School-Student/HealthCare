@@ -45,12 +45,7 @@ public class RendezVousService {
 
     public List<RendezVousResponseDTO> listerRendezVous(){
         List<RenderVous> renderVousList = rendezVousRepository.findAll();
-        List<RendezVousResponseDTO> renderVousDto = new ArrayList<>();
-        for(RenderVous renderVous : renderVousList){
-            RendezVousResponseDTO dto = rendezVousMapper.toDto(renderVous);
-            renderVousDto.add(dto);
-        }
-      return renderVousDto;
+        return rendezVousMapper.toDtoList(renderVousList);
     }
 
 
@@ -64,20 +59,21 @@ public class RendezVousService {
     public List<RendezVousResponseDTO> findRendezVousByMedecin(int medecineId){
       return rendezVousMapper.toDtoList(rendezVousRepository.findByMedecine_Id(medecineId)) ;
     }
+
     public List<RendezVousResponseDTO> findRendezVousByPatient(int patientId){
         return rendezVousMapper.toDtoList(rendezVousRepository.findByPatient_Id(patientId)) ;
     }
 
-
     public RendezVousResponseDTO modifierRendezVous(int rendezVousId , RendezVousRequestDTO newRendezVous){
         RenderVous renderVous = rendezVousRepository.findById(rendezVousId).orElseThrow(()->new RuntimeException("Rendez vous not found !!"));
-if(renderVous != null){
+    if(renderVous != null){
     renderVous.getPatient().setId(newRendezVous.getPatientId());
     renderVous.getMedecine().setId(newRendezVous.getMedecinId());
     renderVous.setDateRendezVous(newRendezVous.getDateRendezVous());
     renderVous.setStatut(newRendezVous.getStatut());
    return rendezVousMapper.toDto(rendezVousRepository.save(renderVous));
 }
-return  null;
+    return  null;
     }
+
 }

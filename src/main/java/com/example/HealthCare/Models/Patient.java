@@ -1,5 +1,6 @@
 package com.example.HealthCare.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +25,6 @@ public class Patient {
 
     @OneToMany(mappedBy = "patient")
     private List<RenderVous> renderVousList;
-
     @OneToOne(mappedBy = "patient")
     private DossierMedical dossierMedical;
 

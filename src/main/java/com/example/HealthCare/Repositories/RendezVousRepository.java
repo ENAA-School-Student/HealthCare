@@ -9,7 +9,7 @@ import java.util.List;
 public interface RendezVousRepository extends JpaRepository<RenderVous,Integer> {
 
     List<RenderVous> findByPatient_Id(int patientId);
-   List<RenderVous> findByMedecine_Id(int medecineId);
+    List<RenderVous> findByMedecine_Id(int medecineId);
 
 
 }

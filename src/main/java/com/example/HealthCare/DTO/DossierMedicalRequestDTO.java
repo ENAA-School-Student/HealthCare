@@ -2,6 +2,9 @@ package com.example.HealthCare.DTO;
 
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +22,10 @@ public class DossierMedicalRequestDTO {
     private String diagnostic;
     @NotBlank(message = "observations is mandatory")
     private String observations;
-    @NotBlank(message = "dateCreation is mandatory")
+    @NotNull(message = "dateCreation is mandatory")
+    @PastOrPresent(message = "dateCreation cannot be in the future")
     private LocalDate dateCreation;
-    @NotBlank(message = "patientId is mandatory")
+    @NotNull(message = "patientId is mandatory")
+    @Positive(message = "patientId must be positive")
     private int patientId;
 }

@@ -17,5 +17,5 @@ public class DossierMedicalDTO {
     private String diagnostic;
     private String observations;
     private LocalDate dateCreation;
-    private Patient patient;
+ 
 }

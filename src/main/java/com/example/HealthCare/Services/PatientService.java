@@ -20,15 +20,12 @@ public class PatientService {
     private PatientMapper patientMapper;
 
 
-
-
    public PatientResponseDTO ajouterPatient(PatientRequestDTO patient){
      Patient patient1 =  patientMapper.toEntity(patient);
      return patientMapper.toDto(patientRepository.save(patient1));
     }
 
     public List<PatientResponseDTO> listerPatients(){
-
             List<Patient> patients = patientRepository.findAll();
             return patients
                     .stream()

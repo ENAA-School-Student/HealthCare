@@ -1,5 +1,6 @@
 package com.example.HealthCare.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +22,6 @@ public class DossierMedical {
     private String diagnostic;
     private String observations;
     private LocalDate dateCreation;
-
     @OneToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;

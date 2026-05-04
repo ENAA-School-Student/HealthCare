@@ -23,7 +23,6 @@ public class MedecinService {
 
 
 
-
     public MedecinResponseDTO ajouterMedecine(MedecineRequestDTO medecinDTO){
         Medecine medecine =  medecinMapper.toEntity(medecinDTO);
        return medecinMapper.toDto(medecinRepository.save(medecine));

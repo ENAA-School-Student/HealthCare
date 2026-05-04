@@ -21,7 +21,6 @@ public class PatientResponseDTO {
     private String telephone;
     private LocalDate dateNaissance;
     private int totalRendezVous;
-    private DossierMedical dossierMedical;
-
+    private DossierMedicalDTO dossierMedical;
 
 }

@@ -30,14 +30,12 @@ public class DossierMedicalService {
         return dossierMedicalMapper.toDto(dossierMedical);
     }
 
-
     public DossierMedicalDTO ajouterObservations(int dossierMedicalId , String observations){
         DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new RuntimeException("Dossier Medical not found !!"));
         dossierMedical.setObservations(observations);
         dossierMedicalRepository.save(dossierMedical);
         return dossierMedicalMapper.toDto(dossierMedical);
     }
-
 
     public DossierMedicalDTO consulterUnDossierMedical(int dossierMedicalId){
         DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new RuntimeException("Dossier Medical not found !!"));
