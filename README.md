@@ -71,7 +71,7 @@ src\
 ![diagramme_de_classe_Modifier.png](Conception/diagramme_de_classe_Modifier.png)
 
 # Diagramme de Cas d'Utilisation
-![Cas_utilisation.png](Conception/Cas_utilisation.png)
+![useCaseUpdated.png](Conception/useCaseUpdated.png)
 
 # Diagrammes de Séquence
 exemple de ajouter Dossier Medical
