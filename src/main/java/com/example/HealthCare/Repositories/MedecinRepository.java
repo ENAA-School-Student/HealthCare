@@ -11,8 +11,7 @@ public interface MedecinRepository extends JpaRepository<Medecine,Integer> {
 
 
 
-    @Query("SELECT m, COUNT(r) FROM Medecine m LEFT JOIN RenderVous r ON r.medecine.id = m.id GROUP BY m.nom")
-    List<Object[]> findByMedcinNumberRendezVous();
+
 
 
 }

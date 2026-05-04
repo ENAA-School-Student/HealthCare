@@ -1,9 +1,12 @@
 package com.example.HealthCare.Services;
 
 
+import com.example.HealthCare.DTO.PatientResponseDTO;
 import com.example.HealthCare.DTO.RendezVousRequestDTO;
 import com.example.HealthCare.DTO.RendezVousResponseDTO;
 import com.example.HealthCare.Enums.RendezVousStatutEnum;
+import com.example.HealthCare.Interfaces.MedecinRendezVousCount;
+import com.example.HealthCare.Mapper.PatientMapper;
 import com.example.HealthCare.Mapper.RendezVousMapper;
 import com.example.HealthCare.Models.Medecine;
 import com.example.HealthCare.Models.Patient;
@@ -30,6 +33,8 @@ public class RendezVousService {
     private PatientRepository patientRepository;
     @Autowired
     private MedecinRepository medecinRepository;
+    @Autowired
+    private PatientMapper patientMapper;
 
 
 
@@ -95,7 +100,28 @@ return  null;
     }
 
 
+    public List<RendezVousResponseDTO> findrenderVousParPatient(int id){
+       List<RenderVous> rs = rendezVousRepository.renderVousParPatient(id);
+      return rs.stream()
+               .map((renderVous) ->
+                       {RendezVousResponseDTO dto = rendezVousMapper.toDto(renderVous);
+                       return dto;
+                       }).toList();
 
+    }
 
+    public List<MedecinRendezVousCount> getMedecenTotalRendezVous(){
+        return rendezVousRepository.medecinRendezVousCount();
+    }
 
+    public List<PatientResponseDTO> getPatientTotalRendezVousGretaerthan(int number){
+        List<Patient> rs = rendezVousRepository.patientRendezVous(number);
+        return rs.stream()
+                .map((patient) ->
+                        {
+                            PatientResponseDTO dto = patientMapper.toDto(patient);
+                            return dto;
+                        }
+                        ).toList();
+    }
 }

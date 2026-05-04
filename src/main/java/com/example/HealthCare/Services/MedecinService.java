@@ -63,9 +63,7 @@ public class MedecinService {
         return null;
     }
 
-    public List<Object[]> findByMedcinNumberRendezVous(){
-        return medecinRepository.findByMedcinNumberRendezVous();
-    }
+
 
 
 

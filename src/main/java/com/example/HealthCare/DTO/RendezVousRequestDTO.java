@@ -2,6 +2,7 @@ package com.example.HealthCare.DTO;
 
 import com.example.HealthCare.Enums.RendezVousStatutEnum;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +15,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RendezVousRequestDTO {
-    @NotBlank(message = "dateRendezVous is mandatory")
+    @NotNull(message = "dateRendezVous is mandatory")
     private LocalDate dateRendezVous;
-    @NotBlank(message = "statut is mandatory")
+    @NotNull(message = "statut is mandatory")
     private RendezVousStatutEnum statut;
-    @NotBlank(message = "medecinId is mandatory")
+    @NotNull(message = "medecinId is mandatory")
     private int medecinId;
-    @NotBlank(message = "patientId is mandatory")
+    @NotNull(message = "patientId is mandatory")
     private int patientId;
 }

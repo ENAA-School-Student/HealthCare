@@ -42,9 +42,6 @@ public class MedecinController {
     }
 
 
-    @GetMapping("/findByMedcinCountRendezVous")
-    public List<Object[]> findBYMedcin(){
-       return medecinService.findByMedcinNumberRendezVous();
-    }
+
 
 }

@@ -1,7 +1,10 @@
 package com.example.HealthCare.Controllers;
 
+import com.example.HealthCare.DTO.MedecinResponseDTO;
+import com.example.HealthCare.DTO.PatientResponseDTO;
 import com.example.HealthCare.DTO.RendezVousRequestDTO;
 import com.example.HealthCare.DTO.RendezVousResponseDTO;
+import com.example.HealthCare.Interfaces.MedecinRendezVousCount;
 import com.example.HealthCare.Services.RendezVousService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,4 +67,19 @@ public class RendezVousController {
     public List<RendezVousResponseDTO> getRendezVousByDateAndPatientId(@RequestParam int id, @RequestParam LocalDate date){
         return rendezVousService.findRendezVousByGivinDateAndPatientId(date,id);
     }
+
+    @GetMapping("/rendezVous")
+    public List<RendezVousResponseDTO> rendervoudParpatietn(@RequestParam int id){
+        return rendezVousService.findrenderVousParPatient(id);
+    }
+
+    @GetMapping("/countRendezVousParMedecen")
+    public List<MedecinRendezVousCount> medecinRendezVousCounts (){
+        return rendezVousService.getMedecenTotalRendezVous();
+    }
+    @GetMapping("/RendezVousParPatietnGreaterThan")
+    public List<PatientResponseDTO> patientResponseDTOS (@RequestParam int number){
+        return rendezVousService.getPatientTotalRendezVousGretaerthan(number);
+    }
+
 }
