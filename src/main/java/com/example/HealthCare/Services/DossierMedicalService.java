@@ -3,6 +3,7 @@ package com.example.HealthCare.Services;
 
 import com.example.HealthCare.DTO.DossierMedicalRequestDTO;
 import com.example.HealthCare.DTO.DossierMedicalDTO;
+import com.example.HealthCare.Exceptions.ResourceNotFoundException;
 import com.example.HealthCare.Mapper.DossierMedicalMapper;
 import com.example.HealthCare.Models.DossierMedical;
 import com.example.HealthCare.Repositories.DossierMedicalRepository;
@@ -24,21 +25,21 @@ public class DossierMedicalService {
     }
 
     public DossierMedicalDTO ajouterDiagnostic(int dossierMedicalId , String diagnostic){
-        DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new RuntimeException("Dossier Medical not found !!"));
+        DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new ResourceNotFoundException("Dossier medical with ID " + dossierMedicalId + " Not Found !!"));
         dossierMedical.setDiagnostic(diagnostic);
         dossierMedicalRepository.save(dossierMedical);
         return dossierMedicalMapper.toDto(dossierMedical);
     }
 
     public DossierMedicalDTO ajouterObservations(int dossierMedicalId , String observations){
-        DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new RuntimeException("Dossier Medical not found !!"));
+        DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new ResourceNotFoundException("Dossier medical with ID " + dossierMedicalId + " Not Found !!"));
         dossierMedical.setObservations(observations);
         dossierMedicalRepository.save(dossierMedical);
         return dossierMedicalMapper.toDto(dossierMedical);
     }
 
     public DossierMedicalDTO consulterUnDossierMedical(int dossierMedicalId){
-        DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new RuntimeException("Dossier Medical not found !!"));
+        DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new ResourceNotFoundException("Dossier medical with ID " + dossierMedicalId + " Not Found !!"));
         return dossierMedicalMapper.toDto(dossierMedical);
     }
 

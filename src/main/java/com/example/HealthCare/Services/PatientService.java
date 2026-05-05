@@ -3,6 +3,7 @@ package com.example.HealthCare.Services;
 
 import com.example.HealthCare.DTO.PatientRequestDTO;
 import com.example.HealthCare.DTO.PatientResponseDTO;
+import com.example.HealthCare.Exceptions.ResourceNotFoundException;
 import com.example.HealthCare.Mapper.PatientMapper;
 import com.example.HealthCare.Models.Patient;
 import com.example.HealthCare.Repositories.PatientRepository;
@@ -38,7 +39,7 @@ public class PatientService {
     }
 
     public Patient modifierPatient(int patientId, PatientRequestDTO newPatient){
-       Patient patient = patientRepository.findById(patientId).orElseThrow(()->new RuntimeException("Patient Not Found with id " + patientId));
+       Patient patient = patientRepository.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient Not Found with id " + patientId));
        if(patient != null){
            patient.setNom(newPatient.getNom());
            patient.setPrenom(newPatient.getPrenom());
@@ -52,12 +53,12 @@ public class PatientService {
 
 
     public PatientResponseDTO consulterPatient(int patientId){
-       Patient patient = patientRepository.findById(patientId).orElseThrow(()-> new RuntimeException("Patient Not Found !!"));
+        Patient patient = patientRepository.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient Not Found with id " + patientId));
        return patientMapper.toDto(patient);
     }
 
     public Boolean supprimerPatient(int patientId){
-        Patient patient = patientRepository.findById(patientId).orElseThrow(()-> new RuntimeException("Patient Not Found !!"));
+        Patient patient = patientRepository.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient Not Found with id " + patientId));
         if(patient != null){
             patientRepository.deleteById(patientId);
             return true;

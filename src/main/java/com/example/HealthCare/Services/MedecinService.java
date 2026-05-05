@@ -3,6 +3,7 @@ package com.example.HealthCare.Services;
 
 import com.example.HealthCare.DTO.MedecineRequestDTO;
 import com.example.HealthCare.DTO.MedecinResponseDTO;
+import com.example.HealthCare.Exceptions.ResourceNotFoundException;
 import com.example.HealthCare.Mapper.MedecinMapper;
 import com.example.HealthCare.Models.Medecine;
 import com.example.HealthCare.Repositories.MedecinRepository;
@@ -29,7 +30,7 @@ public class MedecinService {
     }
 
     public Boolean supprimerMedecine(int medecinId){
-        Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(()->new RuntimeException("not found with id " + medecinId));
+        Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(() -> new ResourceNotFoundException("Medecin with ID " + medecinId + " Not Found !!"));
         if(medecine != null){
             medecinRepository.deleteById(medecinId);
             return true;
@@ -50,7 +51,7 @@ public class MedecinService {
     }
 
     public MedecinResponseDTO modifierMedecine(int medecinId , MedecineRequestDTO medecinDTO){
-        Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(()->new RuntimeException("not found with id " + medecinId));
+        Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(() -> new ResourceNotFoundException("Medecin with ID " + medecinId + " Not Found !!"));
         if(medecine != null){
             medecine.setNom(medecinDTO.getNom());
             medecine.setEmail(medecinDTO.getEmail());

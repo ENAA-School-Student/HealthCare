@@ -4,6 +4,7 @@ package com.example.HealthCare.Services;
 import com.example.HealthCare.DTO.RendezVousRequestDTO;
 import com.example.HealthCare.DTO.RendezVousResponseDTO;
 import com.example.HealthCare.Enums.RendezVousStatutEnum;
+import com.example.HealthCare.Exceptions.ResourceNotFoundException;
 import com.example.HealthCare.Mapper.RendezVousMapper;
 import com.example.HealthCare.Models.Medecine;
 import com.example.HealthCare.Models.Patient;
@@ -32,8 +33,8 @@ public class RendezVousService {
 
 
     public RendezVousResponseDTO creeRendezVous(RendezVousRequestDTO rendezVousDTO){
-        Patient patient = patientRepository.findById(rendezVousDTO.getPatientId()).orElseThrow(() -> new RuntimeException("Paitent Not Found!!"));
-        Medecine medecine = medecinRepository.findById(rendezVousDTO.getMedecinId()).orElseThrow(() -> new RuntimeException("Medecin Not found !!"));
+        Patient patient = patientRepository.findById(rendezVousDTO.getPatientId()).orElseThrow(() -> new ResourceNotFoundException("Paitent with ID " + rendezVousDTO.getPatientId() + " Not Found !!"));
+        Medecine medecine = medecinRepository.findById(rendezVousDTO.getMedecinId()).orElseThrow(() -> new ResourceNotFoundException("Medecin with ID " + rendezVousDTO.getMedecinId() + " Not Found !!"));
         RenderVous renderVous = rendezVousMapper.toEntity(rendezVousDTO);
         if(patient != null && medecine != null){
             renderVous.setPatient(patient);
@@ -50,7 +51,7 @@ public class RendezVousService {
 
 
     public RendezVousResponseDTO annulerRendezVous(int rendezVousId){
-          RenderVous renderVous = rendezVousRepository.findById(rendezVousId).orElseThrow(()->new RuntimeException("not found"));
+          RenderVous renderVous = rendezVousRepository.findById(rendezVousId).orElseThrow(()->new ResourceNotFoundException("Rendez Vous with ID " + rendezVousId + " Not Found !!"));
           renderVous.setStatut(RendezVousStatutEnum.ANNULE);
           return  rendezVousMapper.toDto(rendezVousRepository.save(renderVous));
     }
@@ -65,7 +66,7 @@ public class RendezVousService {
     }
 
     public RendezVousResponseDTO modifierRendezVous(int rendezVousId , RendezVousRequestDTO newRendezVous){
-        RenderVous renderVous = rendezVousRepository.findById(rendezVousId).orElseThrow(()->new RuntimeException("Rendez vous not found !!"));
+        RenderVous renderVous = rendezVousRepository.findById(rendezVousId).orElseThrow(()->new ResourceNotFoundException("Rendez Vous with ID " + rendezVousId + " Not Found !!"));
     if(renderVous != null){
     renderVous.getPatient().setId(newRendezVous.getPatientId());
     renderVous.getMedecine().setId(newRendezVous.getMedecinId());
