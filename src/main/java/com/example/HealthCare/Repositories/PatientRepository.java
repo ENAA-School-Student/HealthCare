@@ -5,6 +5,8 @@ import com.example.HealthCare.Models.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface PatientRepository extends JpaRepository<Patient,Integer> {
     void deletePatientById(int id);
 }

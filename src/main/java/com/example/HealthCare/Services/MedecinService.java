@@ -62,6 +62,4 @@ public class MedecinService {
         return null;
     }
 
-
-
 }

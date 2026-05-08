@@ -14,5 +14,4 @@ public interface RendezVousMapper {
     RenderVous toEntity(RendezVousRequestDTO rendezVousDTO);
     List<RendezVousResponseDTO> toDtoList(List<RenderVous> renderVousList);
 
-
 }
