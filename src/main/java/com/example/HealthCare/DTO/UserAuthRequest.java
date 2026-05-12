@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRequestDTO {
+public class UserAuthRequest {
     @NotNull(message = "dateRendezVous is mandatory")
     private String userName;
     @NotNull(message = "dateRendezVous is mandatory")
