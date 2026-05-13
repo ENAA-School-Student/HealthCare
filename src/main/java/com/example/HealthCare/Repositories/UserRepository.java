@@ -1,9 +1,10 @@
 package com.example.HealthCare.Repositories;
 
-import com.example.HealthCare.DTO.UserInfo;
-import com.example.HealthCare.Models.UserDetails;
+import com.example.HealthCare.Models.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<UserDetails, Integer> {
-    UserInfo findByUsername(String username);
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+   Optional<UserEntity>  findByUsername(String username);
 }

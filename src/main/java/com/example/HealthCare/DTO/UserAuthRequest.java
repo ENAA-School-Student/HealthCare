@@ -13,11 +13,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserAuthRequest {
-    @NotNull(message = "dateRendezVous is mandatory")
+    @NotNull(message = "Username is mandatory")
     private String userName;
-    @NotNull(message = "dateRendezVous is mandatory")
+    @NotNull(message = "Email is mandatory")
     @Email
     private String email;
-    @NotNull(message = "dateRendezVous is mandatory")
+    @NotNull(message = "Password is mandatory")
     private String password;
 }
