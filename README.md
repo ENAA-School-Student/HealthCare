@@ -89,3 +89,65 @@ exemple de supprimer Medecine Par Id
 exemple de rendez_vous par patient
 
 ![RendezVousByPatient_Sequence.png](Conception/RendezVousByPatient_Sequence.png)
+
+---
+
+# Authentication
+
+## Fonctionnalités
+Inscription utilisateur
+Connexion utilisateur et génération JWT token
+Sécurisation des endpoints API
+Validation du token JWT
+Gestion de l'expiration du token (10 heures)
+
+## Concepts Utilisés
+AuthenticationManager
+PasswordEncoder (BCrypt)
+JWT Filter
+SecurityFilterChain
+UserDetailsService
+DaoAuthenticationProvider
+
+---
+
+## Tester avec Postman
+
+### 1. Inscription
+- Method: `POST`
+- URL: `http://localhost:8081/api/auth/register`
+- Body:
+```json
+{
+  "userName": "john_doe",
+  "email": "john@example.com",
+  "password": "securePassword123"
+}
+```
+- Réponse: `User registered successfully`
+
+### 2. Connexion (Login)
+- Method: `POST`
+- URL: `http://localhost:8080/api/auth/login`
+- Body: même que l'inscription
+- Réponse: le JWT token
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+### 3. Utiliser le Token
+- Copier le token de la réponse login
+- Pour les endpoints sécurisés, ajouter header:
+  - Key: `Authorization`
+  - Value: `Bearer YOUR_TOKEN_HERE`
+
+### Endpoints Sécurisés
+- GET `/api/patients` - Lister patients
+- GET `/api/medecins` - Lister médecins
+- GET `/api/rendezvous` - Lister rendez-vous
+- GET `/api/dossier-medical` - Consulter dossiers
+
+Sans token → 401 Unauthorized
+Token expiré → 403 Forbidden
