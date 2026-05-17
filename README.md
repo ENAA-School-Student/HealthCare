@@ -119,9 +119,9 @@ DaoAuthenticationProvider
 - Body:
 ```json
 {
-  "userName": "john_doe",
-  "email": "john@example.com",
-  "password": "securePassword123"
+  "userName": "souhayb_120",
+  "email": "souhayb@gmail.com",
+  "password": "123"
 }
 ```
 - Réponse: `User registered successfully`
