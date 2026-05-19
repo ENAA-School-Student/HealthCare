@@ -8,8 +8,11 @@ import com.example.HealthCare.Mapper.PatientMapper;
 import com.example.HealthCare.Models.Patient;
 import com.example.HealthCare.Repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -19,6 +22,9 @@ public class PatientService {
     private PatientRepository patientRepository;
     @Autowired
     private PatientMapper patientMapper;
+
+
+
 
 
    public PatientResponseDTO ajouterPatient(PatientRequestDTO patient){

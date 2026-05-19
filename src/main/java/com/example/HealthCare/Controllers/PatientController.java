@@ -6,6 +6,7 @@ import com.example.HealthCare.DTO.PatientResponseDTO;
 import com.example.HealthCare.Services.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class PatientController {
     public void ajouterPatient(@RequestBody @Valid PatientRequestDTO patientDTO){
         patientService.ajouterPatient(patientDTO);
     }
+
 
     @GetMapping("/listerLesPatients")
     public List<PatientResponseDTO> listerPatient(){
