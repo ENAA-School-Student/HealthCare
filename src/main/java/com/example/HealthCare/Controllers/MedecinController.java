@@ -6,6 +6,8 @@ import com.example.HealthCare.DTO.MedecinResponseDTO;
 import com.example.HealthCare.Services.MedecinService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class MedecinController {
 
 
     @GetMapping("/ListerMedecines")
-    public List<MedecinResponseDTO> afficherMedecins(){
-      return medecinService.listerMedecine();
+    public Page<MedecinResponseDTO> afficherMedecins(@RequestParam Pageable pageable){
+      return medecinService.listerMedecine(pageable);
     }
 
 

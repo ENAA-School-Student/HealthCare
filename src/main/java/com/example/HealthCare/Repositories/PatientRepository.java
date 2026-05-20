@@ -11,4 +11,5 @@ import java.util.List;
 public interface PatientRepository extends JpaRepository<Patient,Integer> {
     void deletePatientById(int id);
 
+
 }

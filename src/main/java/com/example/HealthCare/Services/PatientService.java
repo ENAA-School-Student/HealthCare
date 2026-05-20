@@ -10,10 +10,11 @@ import com.example.HealthCare.Repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PatientService {
@@ -32,16 +33,14 @@ public class PatientService {
      return patientMapper.toDto(patientRepository.save(patient1));
     }
 
-    public List<PatientResponseDTO> listerPatients(){
-            List<Patient> patients = patientRepository.findAll();
+    public Page<PatientResponseDTO> listerPatients(Pageable pageable){
+            Page<Patient> patients = patientRepository.findAll(pageable);
             return patients
-                    .stream()
                     .map((patient)->{
                         PatientResponseDTO dto = patientMapper.toDto(patient);
                         dto.setTotalRendezVous(patient.getRenderVousList().size());
                         return dto;
-                    })
-                    .toList();
+                    });
     }
 
     public Patient modifierPatient(int patientId, PatientRequestDTO newPatient){

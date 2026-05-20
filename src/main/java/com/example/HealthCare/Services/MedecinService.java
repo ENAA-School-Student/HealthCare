@@ -9,6 +9,8 @@ import com.example.HealthCare.Models.Medecine;
 import com.example.HealthCare.Repositories.MedecinRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,16 +40,14 @@ public class MedecinService {
         return false;
     }
 
-    public List<MedecinResponseDTO> listerMedecine(){
-        List<Medecine> medecineList = medecinRepository.findAll();
+    public Page<MedecinResponseDTO> listerMedecine(Pageable pageable){
+        Page<Medecine> medecineList = medecinRepository.findAll(pageable);
       return medecineList
-                .stream()
                 .map((medecine)->{
                     MedecinResponseDTO medecinResponseDTO = medecinMapper.toDto(medecine);
                     medecinResponseDTO.setTotalRendezVous(medecine.getRenderVousList().size());
                     return medecinResponseDTO;
-                })
-              .toList();
+                });
     }
 
     public MedecinResponseDTO modifierMedecine(int medecinId , MedecineRequestDTO medecinDTO){

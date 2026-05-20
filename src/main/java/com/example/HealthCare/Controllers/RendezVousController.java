@@ -5,6 +5,8 @@ import com.example.HealthCare.DTO.RendezVousResponseDTO;
 import com.example.HealthCare.Services.RendezVousService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +26,8 @@ public class RendezVousController {
 
 
     @GetMapping("/listerLesRendezVous")
-    public List<RendezVousResponseDTO> listerDossierMedical(){
-        return rendezVousService.listerRendezVous();
+    public Page<RendezVousResponseDTO> listerDossierMedical(@RequestParam Pageable pageable){
+        return rendezVousService.listerRendezVous(pageable);
     }
 
 

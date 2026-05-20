@@ -7,6 +7,7 @@ import com.example.HealthCare.Services.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +27,8 @@ public class PatientController {
 
 
     @GetMapping("/listerLesPatients")
-    public List<PatientResponseDTO> listerPatient(){
-        return patientService.listerPatients();
+    public Page<PatientResponseDTO> listerPatient(@RequestParam Pageable pageable){
+        return patientService.listerPatients(pageable);
     }
 
     @GetMapping("/consulterPatientPar{id}")
