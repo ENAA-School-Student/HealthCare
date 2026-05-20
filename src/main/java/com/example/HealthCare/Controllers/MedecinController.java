@@ -3,9 +3,11 @@ package com.example.HealthCare.Controllers;
 
 import com.example.HealthCare.DTO.MedecineRequestDTO;
 import com.example.HealthCare.DTO.MedecinResponseDTO;
+import com.example.HealthCare.DTO.PatientResponseDTO;
 import com.example.HealthCare.Services.MedecinService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +25,13 @@ public class MedecinController {
       return medecinService.listerMedecine();
     }
 
+
+    @GetMapping("/listerLesMedecinPagination")
+    public Page<MedecinResponseDTO> getAllProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "2") int size) {
+        return medecinService.findAllMedecinPagination(page,size);
+    }
 
     @PostMapping("/AjouterMedecine")
     public void ajouterMedecine(@RequestBody @Valid MedecineRequestDTO medecinDTO){

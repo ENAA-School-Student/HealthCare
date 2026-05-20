@@ -9,10 +9,10 @@ import com.example.HealthCare.Models.Patient;
 import com.example.HealthCare.Repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -25,7 +25,14 @@ public class PatientService {
 
 
 
-
+    public Page<PatientResponseDTO> findAll(int pageNumber , int size) {
+        Pageable pageable = PageRequest.of(pageNumber, size);
+        return patientRepository.findAll(pageable).map((patient ->
+        {
+            PatientResponseDTO patientResponseDTO = patientMapper.toDto(patient);
+            return  patientResponseDTO;
+        }));
+    }
 
    public PatientResponseDTO ajouterPatient(PatientRequestDTO patient){
      Patient patient1 =  patientMapper.toEntity(patient);

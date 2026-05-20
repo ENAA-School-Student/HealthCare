@@ -3,10 +3,13 @@ package com.example.HealthCare.Controllers;
 
 import com.example.HealthCare.DTO.PatientRequestDTO;
 import com.example.HealthCare.DTO.PatientResponseDTO;
+import com.example.HealthCare.Models.Patient;
 import com.example.HealthCare.Services.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +26,15 @@ public class PatientController {
     public void ajouterPatient(@RequestBody @Valid PatientRequestDTO patientDTO){
         patientService.ajouterPatient(patientDTO);
     }
+
+
+    @GetMapping("/listerLesPatientsPagination")
+    public Page<PatientResponseDTO> getAllProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "2") int size) {
+        return patientService.findAll(page,size);
+    }
+
 
 
     @GetMapping("/listerLesPatients")
