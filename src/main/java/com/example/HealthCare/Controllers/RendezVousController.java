@@ -1,10 +1,13 @@
 package com.example.HealthCare.Controllers;
 
+import com.example.HealthCare.DTO.DossierMedicalDTO;
+import com.example.HealthCare.DTO.PatientResponseDTO;
 import com.example.HealthCare.DTO.RendezVousRequestDTO;
 import com.example.HealthCare.DTO.RendezVousResponseDTO;
 import com.example.HealthCare.Services.RendezVousService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +20,18 @@ public class RendezVousController {
     private RendezVousService rendezVousService;
 
 
+
+
     @PostMapping("/creeUnRendezVous")
     public void creeRendezVous(@RequestBody @Valid RendezVousRequestDTO rendezVousDTO){
         rendezVousService.creeRendezVous(rendezVousDTO);
+    }
+
+    @GetMapping("/listerLesRendezVousPagination")
+    public Page<RendezVousResponseDTO> getAllProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "2") int size) {
+        return rendezVousService.findAll(page,size);
     }
 
 

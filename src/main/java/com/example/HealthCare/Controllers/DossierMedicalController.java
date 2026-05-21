@@ -6,6 +6,7 @@ import com.example.HealthCare.DTO.DossierMedicalDTO;
 import com.example.HealthCare.Services.DossierMedicalService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,12 @@ public class DossierMedicalController {
     @Autowired
     private DossierMedicalService dossierMedicalService;
 
+
+    @GetMapping("/getAllDossierMedical")
+    public Page<DossierMedicalDTO> getAllDossierMedicalPagination(@RequestParam int page, @RequestParam int size)
+    {
+    return dossierMedicalService.findAllDossierMedical(page,size);
+    }
 
     @PostMapping("/creeUnDossierMedical")
     public void ajouterDossierMedical(@RequestBody @Valid DossierMedicalRequestDTO dossieMedicalDTO){

@@ -1,6 +1,7 @@
 package com.example.HealthCare.Services;
 
 
+import com.example.HealthCare.DTO.PatientResponseDTO;
 import com.example.HealthCare.DTO.RendezVousRequestDTO;
 import com.example.HealthCare.DTO.RendezVousResponseDTO;
 import com.example.HealthCare.Enums.RendezVousStatutEnum;
@@ -13,6 +14,9 @@ import com.example.HealthCare.Repositories.MedecinRepository;
 import com.example.HealthCare.Repositories.PatientRepository;
 import com.example.HealthCare.Repositories.RendezVousRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -49,6 +53,15 @@ public class RendezVousService {
         return rendezVousMapper.toDtoList(renderVousList);
     }
 
+
+    public Page<RendezVousResponseDTO> findAll(int pageNumber , int size) {
+        Pageable pageable = PageRequest.of(pageNumber, size);
+        return rendezVousRepository.findAll(pageable).map((rendezVous ->
+        {
+            RendezVousResponseDTO rendezVousResponseDTO = rendezVousMapper.toDto(rendezVous);
+            return  rendezVousResponseDTO;
+        }));
+    }
 
     public RendezVousResponseDTO annulerRendezVous(int rendezVousId){
           RenderVous renderVous = rendezVousRepository.findById(rendezVousId).orElseThrow(()->new ResourceNotFoundException("Rendez Vous with ID " + rendezVousId + " Not Found !!"));
