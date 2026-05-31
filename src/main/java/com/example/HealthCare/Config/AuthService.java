@@ -25,13 +25,17 @@ public class AuthService {
         user.setUsername(request.getUserName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(request.getRole());
         userRepository.save(user);
     }
 
     public AuthResponse login(UserAuthRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
         UserDetails user = userDetailsService.loadUserByUsername(request.getUserName());
+
         String token = jwtUtil.generateToken(user);
         return new AuthResponse(token);
     }
+
+
 }

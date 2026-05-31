@@ -14,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable.*;
 import java.util.List;
 
 @Service
@@ -30,16 +29,6 @@ public class PatientService {
     public Page<PatientResponseDTO> findAll(int pageNumber , int size) {
         Pageable pageable = PageRequest.of(pageNumber, size);
         return patientRepository.findAll(pageable).map((patient ->
-        {
-            PatientResponseDTO patientResponseDTO = patientMapper.toDto(patient);
-            return  patientResponseDTO;
-        }));
-    }
-
-
-    public Page<PatientResponseDTO> findByUserName(String nom, int page , int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("nom").ascending());
-        return patientRepository.findByNom(nom,pageable).map((patient ->
         {
             PatientResponseDTO patientResponseDTO = patientMapper.toDto(patient);
             return  patientResponseDTO;

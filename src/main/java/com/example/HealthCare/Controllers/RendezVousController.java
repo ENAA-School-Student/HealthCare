@@ -29,17 +29,6 @@ public class RendezVousController {
         rendezVousService.creeRendezVous(rendezVousDTO);
     }
 
-    @GetMapping("/findRendezVousByStatut")
-    public Page<RendezVousResponseDTO> findRendezVousByStatut(@RequestParam String statut,
-                                                              @RequestParam int page,
-                                                              @RequestParam int size)
-    {
-        RendezVousStatutEnum statutEnum = RendezVousStatutEnum.valueOf(statut.toUpperCase());
-        return rendezVousService.findRendezVousByStatutRendezVous(statutEnum,page,size);
-
-    }
-
-
     @GetMapping("/listerLesRendezVousPagination")
     public Page<RendezVousResponseDTO> getAllProducts(
             @RequestParam(defaultValue = "0") int page,

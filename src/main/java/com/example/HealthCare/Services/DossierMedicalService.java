@@ -25,7 +25,7 @@ public class DossierMedicalService {
 
     public Page<DossierMedicalDTO> findAllDossierMedical(int page , int size){
         Pageable pageable = PageRequest.of(page, size);
-        return  dossierMedicalRepository.findAll(pageable).map(
+      return  dossierMedicalRepository.findAll(pageable).map(
                 (dossierMedical -> {
                     DossierMedicalDTO dossierMedicalDTO = dossierMedicalMapper.toDto(dossierMedical);
                     return  dossierMedicalDTO;

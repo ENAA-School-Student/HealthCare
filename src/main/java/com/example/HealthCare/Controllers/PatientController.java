@@ -45,6 +45,15 @@ public class PatientController {
 
 
 
+    @GetMapping("/listerLesPatientsPagination")
+    public Page<PatientResponseDTO> getAllProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "2") int size) {
+        return patientService.findAll(page,size);
+    }
+
+
+
     @GetMapping("/listerLesPatients")
     public List<PatientResponseDTO> listerPatient(){
         return patientService.listerPatients();

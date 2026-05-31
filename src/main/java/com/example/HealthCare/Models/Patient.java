@@ -23,6 +23,8 @@ public class Patient {
     private String telephone;
     private LocalDate dateNaissance;
 
+
+
     @OneToMany(mappedBy = "patient")
     private List<RenderVous> renderVousList;
     @OneToOne(mappedBy = "patient")

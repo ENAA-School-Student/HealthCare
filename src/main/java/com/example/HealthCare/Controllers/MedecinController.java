@@ -26,15 +26,6 @@ public class MedecinController {
     }
 
 
-    @GetMapping("/getMedecinsBySpecialite")
-    public Page<MedecinResponseDTO> findMedcinsBySpecialite(@RequestParam String specialite,
-                                                            @RequestParam int page,
-                                                            @RequestParam int size){
-        return medecinService.findBySpecialiteContaining(specialite,page,size);
-    }
-
-
-
     @GetMapping("/listerLesMedecinPagination")
     public Page<MedecinResponseDTO> getAllProducts(
             @RequestParam(defaultValue = "0") int page,

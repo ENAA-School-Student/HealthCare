@@ -1,10 +1,12 @@
 package com.example.HealthCare.Config;
 
+import com.example.HealthCare.Enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider; // ← this import
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,6 +31,28 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/patients/AjouterUnPatient").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/patients/listerLesPatients").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/patients/consulterPatientPar{id}").hasAnyRole(Role.ADMIN.name(),Role.PATIENT.name())
+                        .requestMatchers(HttpMethod.PUT,"/api/patients/modifierUnPatient/{id}").hasAnyRole(Role.ADMIN.name(),Role.PATIENT.name())
+                        .requestMatchers(HttpMethod.DELETE,"/api/patients/supprimerUnPatient/{id}").hasRole(Role.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.POST,"/api/medecins/AjouterMedecine").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/medecins/ListerMedecines").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT,"/api/medecins/modifierMedecine/{id}").hasAnyRole(Role.ADMIN.name(),Role.MEDECIN.name())
+                        .requestMatchers(HttpMethod.DELETE,"/api/medecins/supprimerMedecine/{id}").hasRole(Role.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.POST,"/api/dossierMedical/creeUnDossierMedical").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT,"/api/dossierMedical/ajouterDiagnostic/{id}").hasRole(Role.MEDECIN.name())
+                        .requestMatchers(HttpMethod.PUT,"/api/dossierMedical/ajouterObservations/{id}").hasRole(Role.MEDECIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/dossierMedical/consulterDossierMedical/{id}").hasRole(Role.MEDECIN.name())
+
+                        .requestMatchers(HttpMethod.POST,"/api/rendezVous/creeUnRendezVous").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/rendezVous/listerLesRendezVous").hasAnyRole(Role.ADMIN.name(),Role.MEDECIN.name())
+                        .requestMatchers(HttpMethod.PATCH,"/api/rendezVous/annulerRendezVous/{id}").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/rendezVous/findRendezVousByMedecine{id}").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT,"/api/rendezVous/modifierRendezVousById/{id}").hasRole(Role.ADMIN.name())
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

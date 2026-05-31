@@ -20,7 +20,7 @@ public class DossierMedicalController {
     @GetMapping("/getAllDossierMedical")
     public Page<DossierMedicalDTO> getAllDossierMedicalPagination(@RequestParam int page, @RequestParam int size)
     {
-        return dossierMedicalService.findAllDossierMedical(page,size);
+    return dossierMedicalService.findAllDossierMedical(page,size);
     }
 
     @PostMapping("/creeUnDossierMedical")
