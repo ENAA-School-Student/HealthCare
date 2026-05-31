@@ -22,7 +22,7 @@ public class MedecinController {
 
     @GetMapping("/ListerMedecines")
     public List<MedecinResponseDTO> afficherMedecins(){
-      return medecinService.listerMedecine();
+        return medecinService.listerMedecine();
     }
 
 
@@ -45,8 +45,8 @@ public class MedecinController {
 
 
     @PutMapping("/modifierMedecine/{id}")
-        public void modifierMedecine(@PathVariable int id , @RequestBody @Valid MedecineRequestDTO medecinDTO){
-            medecinService.modifierMedecine(id,medecinDTO);
+    public void modifierMedecine(@PathVariable int id , @RequestBody @Valid MedecineRequestDTO medecinDTO){
+        medecinService.modifierMedecine(id,medecinDTO);
     }
 
 }

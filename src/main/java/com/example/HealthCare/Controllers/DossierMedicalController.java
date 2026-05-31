@@ -31,7 +31,7 @@ public class DossierMedicalController {
 
     @PostMapping("/ajouterDiagnostic/{id}")
     public DossierMedicalDTO ajouterDiagnostic(@PathVariable int id , @Valid @RequestBody String diagnostic){
-       return dossierMedicalService.ajouterDiagnostic(id, diagnostic);
+        return dossierMedicalService.ajouterDiagnostic(id, diagnostic);
     }
 
     @PostMapping("/ajouterObservations/{id}")

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,40 +35,40 @@ public class PatientService {
         }));
     }
 
-   public PatientResponseDTO ajouterPatient(PatientRequestDTO patient){
-     Patient patient1 =  patientMapper.toEntity(patient);
-     return patientMapper.toDto(patientRepository.save(patient1));
+    public PatientResponseDTO ajouterPatient(PatientRequestDTO patient){
+        Patient patient1 =  patientMapper.toEntity(patient);
+        return patientMapper.toDto(patientRepository.save(patient1));
     }
 
     public List<PatientResponseDTO> listerPatients(){
-            List<Patient> patients = patientRepository.findAll();
-            return patients
-                    .stream()
-                    .map((patient)->{
-                        PatientResponseDTO dto = patientMapper.toDto(patient);
-                        dto.setTotalRendezVous(patient.getRenderVousList().size());
-                        return dto;
-                    })
-                    .toList();
+        List<Patient> patients = patientRepository.findAll();
+        return patients
+                .stream()
+                .map((patient)->{
+                    PatientResponseDTO dto = patientMapper.toDto(patient);
+                    dto.setTotalRendezVous(patient.getRenderVousList().size());
+                    return dto;
+                })
+                .toList();
     }
 
     public Patient modifierPatient(int patientId, PatientRequestDTO newPatient){
-       Patient patient = patientRepository.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient Not Found with id " + patientId));
-       if(patient != null){
-           patient.setNom(newPatient.getNom());
-           patient.setPrenom(newPatient.getPrenom());
-           patient.setEmail(newPatient.getEmail());
-           patient.setTelephone(newPatient.getTelephone());
-           patient.setDateNaissance(newPatient.getDateNaissance());
-           return patientRepository.save(patient);
-       }
-       return null;
+        Patient patient = patientRepository.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient Not Found with id " + patientId));
+        if(patient != null){
+            patient.setNom(newPatient.getNom());
+            patient.setPrenom(newPatient.getPrenom());
+            patient.setEmail(newPatient.getEmail());
+            patient.setTelephone(newPatient.getTelephone());
+            patient.setDateNaissance(newPatient.getDateNaissance());
+            return patientRepository.save(patient);
+        }
+        return null;
     }
 
 
     public PatientResponseDTO consulterPatient(int patientId){
         Patient patient = patientRepository.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient Not Found with id " + patientId));
-       return patientMapper.toDto(patient);
+        return patientMapper.toDto(patient);
     }
 
     public Boolean supprimerPatient(int patientId){

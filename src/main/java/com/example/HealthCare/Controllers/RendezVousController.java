@@ -4,12 +4,14 @@ import com.example.HealthCare.DTO.DossierMedicalDTO;
 import com.example.HealthCare.DTO.PatientResponseDTO;
 import com.example.HealthCare.DTO.RendezVousRequestDTO;
 import com.example.HealthCare.DTO.RendezVousResponseDTO;
+import com.example.HealthCare.Enums.RendezVousStatutEnum;
 import com.example.HealthCare.Services.RendezVousService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -43,7 +45,7 @@ public class RendezVousController {
 
     @PatchMapping("/annulerRendezVous/{id}")
     public RendezVousResponseDTO annulerRendezVous(@PathVariable int id){
-      return  rendezVousService.annulerRendezVous(id);
+        return  rendezVousService.annulerRendezVous(id);
     }
 
 

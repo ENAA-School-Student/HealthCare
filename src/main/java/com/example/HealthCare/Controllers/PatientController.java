@@ -27,6 +27,23 @@ public class PatientController {
         patientService.ajouterPatient(patientDTO);
     }
 
+    @GetMapping("/listerLesPatientsByNom")
+    public Page<PatientResponseDTO> getPatientByUserNameAsc(@RequestParam String nom,
+                                                            @RequestParam int page,
+                                                            @RequestParam int size)
+    {
+        return patientService.findByUserName(nom,page,size);
+    }
+
+
+    @GetMapping("/listerLesPatientsPagination")
+    public Page<PatientResponseDTO> getAllProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "2") int size) {
+        return patientService.findAll(page,size);
+    }
+
+
 
     @GetMapping("/listerLesPatientsPagination")
     public Page<PatientResponseDTO> getAllProducts(
@@ -44,7 +61,7 @@ public class PatientController {
 
     @GetMapping("/consulterPatientPar{id}")
     public PatientResponseDTO consulterPatientParId(@PathVariable int id){
-       return patientService.consulterPatient(id);
+        return patientService.consulterPatient(id);
     }
 
     @PutMapping("/modifierUnPatient/{id}")

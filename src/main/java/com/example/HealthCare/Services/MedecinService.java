@@ -38,7 +38,7 @@ public class MedecinService {
 
     public MedecinResponseDTO ajouterMedecine(MedecineRequestDTO medecinDTO){
         Medecine medecine =  medecinMapper.toEntity(medecinDTO);
-       return medecinMapper.toDto(medecinRepository.save(medecine));
+        return medecinMapper.toDto(medecinRepository.save(medecine));
     }
 
     public Boolean supprimerMedecine(int medecinId){
@@ -52,14 +52,14 @@ public class MedecinService {
 
     public List<MedecinResponseDTO> listerMedecine(){
         List<Medecine> medecineList = medecinRepository.findAll();
-      return medecineList
+        return medecineList
                 .stream()
                 .map((medecine)->{
                     MedecinResponseDTO medecinResponseDTO = medecinMapper.toDto(medecine);
                     medecinResponseDTO.setTotalRendezVous(medecine.getRenderVousList().size());
                     return medecinResponseDTO;
                 })
-              .toList();
+                .toList();
     }
 
     public MedecinResponseDTO modifierMedecine(int medecinId , MedecineRequestDTO medecinDTO){

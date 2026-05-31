@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class RendezVousService {
             renderVous.setPatient(patient);
             renderVous.setMedecine(medecine);
         }
-       return rendezVousMapper.toDto(rendezVousRepository.save(renderVous));
+        return rendezVousMapper.toDto(rendezVousRepository.save(renderVous));
     }
 
 
@@ -64,14 +65,14 @@ public class RendezVousService {
     }
 
     public RendezVousResponseDTO annulerRendezVous(int rendezVousId){
-          RenderVous renderVous = rendezVousRepository.findById(rendezVousId).orElseThrow(()->new ResourceNotFoundException("Rendez Vous with ID " + rendezVousId + " Not Found !!"));
-          renderVous.setStatut(RendezVousStatutEnum.ANNULE);
-          return  rendezVousMapper.toDto(rendezVousRepository.save(renderVous));
+        RenderVous renderVous = rendezVousRepository.findById(rendezVousId).orElseThrow(()->new ResourceNotFoundException("Rendez Vous with ID " + rendezVousId + " Not Found !!"));
+        renderVous.setStatut(RendezVousStatutEnum.ANNULE);
+        return  rendezVousMapper.toDto(rendezVousRepository.save(renderVous));
     }
 
 
     public List<RendezVousResponseDTO> findRendezVousByMedecin(int medecineId){
-      return rendezVousMapper.toDtoList(rendezVousRepository.findByMedecine_Id(medecineId)) ;
+        return rendezVousMapper.toDtoList(rendezVousRepository.findByMedecine_Id(medecineId)) ;
     }
 
     public List<RendezVousResponseDTO> findRendezVousByPatient(int patientId){
@@ -80,14 +81,22 @@ public class RendezVousService {
 
     public RendezVousResponseDTO modifierRendezVous(int rendezVousId , RendezVousRequestDTO newRendezVous){
         RenderVous renderVous = rendezVousRepository.findById(rendezVousId).orElseThrow(()->new ResourceNotFoundException("Rendez Vous with ID " + rendezVousId + " Not Found !!"));
-    if(renderVous != null){
-    renderVous.getPatient().setId(newRendezVous.getPatientId());
-    renderVous.getMedecine().setId(newRendezVous.getMedecinId());
-    renderVous.setDateRendezVous(newRendezVous.getDateRendezVous());
-    renderVous.setStatut(newRendezVous.getStatut());
-   return rendezVousMapper.toDto(rendezVousRepository.save(renderVous));
-}
-    return  null;
+        if(renderVous != null){
+            renderVous.getPatient().setId(newRendezVous.getPatientId());
+            renderVous.getMedecine().setId(newRendezVous.getMedecinId());
+            renderVous.setDateRendezVous(newRendezVous.getDateRendezVous());
+            renderVous.setStatut(newRendezVous.getStatut());
+            return rendezVousMapper.toDto(rendezVousRepository.save(renderVous));
+        }
+        return  null;
     }
 
+
+    public Page<RendezVousResponseDTO> findRendezVousByStatutRendezVous(RendezVousStatutEnum statut , int page, int size){
+        Pageable pageable = PageRequest.of(page, size, Sort.by("dateRendezVous").ascending());
+        return  rendezVousRepository.findRenderVousByStatut(statut, pageable).map(
+                (renderVous -> {RendezVousResponseDTO rendezVousResponseDTO = rendezVousMapper.toDto(renderVous);
+                    return rendezVousResponseDTO;})
+        );
+    }
 }
