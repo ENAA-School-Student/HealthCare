@@ -27,13 +27,6 @@ public class PatientController {
         patientService.ajouterPatient(patientDTO);
     }
 
-    @GetMapping("/listerLesPatientsByNom")
-    public Page<PatientResponseDTO> getPatientByUserNameAsc(@RequestParam String nom,
-                                                            @RequestParam int page,
-                                                            @RequestParam int size)
-    {
-        return patientService.findByUserName(nom,page,size);
-    }
 
 
     @GetMapping("/listerLesPatientsPagination")
@@ -45,12 +38,7 @@ public class PatientController {
 
 
 
-    @GetMapping("/listerLesPatientsPagination")
-    public Page<PatientResponseDTO> getAllProducts(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "2") int size) {
-        return patientService.findAll(page,size);
-    }
+
 
 
 

@@ -13,6 +13,6 @@ import java.util.Optional;
 
 public interface PatientRepository extends JpaRepository<Patient,Integer> {
     void deletePatientById(int id);
-    Optional<Patient> findByUser_Username(String username);
+
     Page<Patient> findAll(Pageable pageable);
 }
