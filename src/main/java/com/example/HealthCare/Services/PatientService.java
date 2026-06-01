@@ -6,12 +6,16 @@ import com.example.HealthCare.DTO.PatientResponseDTO;
 import com.example.HealthCare.Exceptions.ResourceNotFoundException;
 import com.example.HealthCare.Mapper.PatientMapper;
 import com.example.HealthCare.Models.Patient;
+import com.example.HealthCare.Models.UserEntity;
 import com.example.HealthCare.Repositories.PatientRepository;
+import com.example.HealthCare.Repositories.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +27,10 @@ public class PatientService {
     private PatientRepository patientRepository;
     @Autowired
     private PatientMapper patientMapper;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
 
@@ -80,7 +88,43 @@ public class PatientService {
         return false;
     }
 
+    // ==================== PATIENT SPECIFIC ENDPOINTS ====================
 
+    /**
+     * Récupère le profil du patient actuellement connecté
+     */
+    public PatientResponseDTO getMonProfil() {
+        UserEntity currentUser = getCurrentUser();
+        Patient patient = patientRepository.findByUser(currentUser)
+                .orElseThrow(() -> new ResourceNotFoundException("Profil patient non trouvé pour l'utilisateur connecté"));
+        return patientMapper.toDto(patient);
+    }
 
+    /**
+     * Modifie le profil du patient actuellement connecté
+     * Les patients ne peuvent modifier que certains champs (nom, prénom, téléphone, dateNaissance)
+     */
+    public PatientResponseDTO modifierMonProfil(PatientRequestDTO patientRequestDTO) {
+        UserEntity currentUser = getCurrentUser();
+        Patient patient = patientRepository.findByUser(currentUser)
+                .orElseThrow(() -> new ResourceNotFoundException("Profil patient non trouvé pour l'utilisateur connecté"));
 
+        // Les patients ne peuvent modifier que ces champs
+        patient.setNom(patientRequestDTO.getNom());
+        patient.setPrenom(patientRequestDTO.getPrenom());
+        patient.setTelephone(patientRequestDTO.getTelephone());
+        patient.setDateNaissance(patientRequestDTO.getDateNaissance());
+        // Note: L'email n'est pas modifiable depuis ce endpoint (géré par UserEntity)
+
+        return patientMapper.toDto(patientRepository.save(patient));
+    }
+
+    /**
+     * Récupère l'utilisateur actuellement connecté
+     */
+    private UserEntity getCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur non trouvé: " + username));
+    }
 }

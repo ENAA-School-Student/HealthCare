@@ -31,10 +31,29 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/patients/AjouterUnPatient").hasRole(Role.ADMIN.name())
+
+                        // ===== PATIENT ENDPOINTS =====
+                        // Patients can view and modify their own profile
+                        .requestMatchers(HttpMethod.GET,"/api/patients/mon-profil").hasRole(Role.PATIENT.name())
+                        .requestMatchers(HttpMethod.PUT,"/api/patients/modifier-profil").hasRole(Role.PATIENT.name())
+                        // Patients cannot list all patients or view other patients
                         .requestMatchers(HttpMethod.GET,"/api/patients/listerLesPatients").hasRole(Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.GET,"/api/patients/consulterPatientPar{id}").hasAnyRole(Role.ADMIN.name(),Role.PATIENT.name())
-                        .requestMatchers(HttpMethod.PUT,"/api/patients/modifierUnPatient/{id}").hasAnyRole(Role.ADMIN.name(),Role.PATIENT.name())
+
+                        // ===== RENDEZVOUS ENDPOINTS =====
+                        // Patients can view their own appointments
+                        .requestMatchers(HttpMethod.GET,"/api/rendezVous/mes-rendez-vous").hasRole(Role.PATIENT.name())
+
+                        // ===== DOSSIER MEDICAL ENDPOINTS =====
+                        // Patients can view their own medical file
+                        .requestMatchers(HttpMethod.GET,"/api/dossierMedical/mon-dossier").hasRole(Role.PATIENT.name())
+                        // Patients CANNOT modify medical files (only doctors can)
+                        .requestMatchers(HttpMethod.POST,"/api/dossierMedical/ajouterDiagnostic/{id}").hasRole(Role.MEDECIN.name())
+                        .requestMatchers(HttpMethod.POST,"/api/dossierMedical/ajouterObservations/{id}").hasRole(Role.MEDECIN.name())
+
+                        .requestMatchers(HttpMethod.POST,"/api/patients/AjouterUnPatient").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/patients/listerLesPatientsPagination").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/patients/consulterPatientPar{id}").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT,"/api/patients/modifierUnPatient/{id}").hasRole(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE,"/api/patients/supprimerUnPatient/{id}").hasRole(Role.ADMIN.name())
 
                         .requestMatchers(HttpMethod.POST,"/api/medecins/AjouterMedecine").hasRole(Role.ADMIN.name())
@@ -42,15 +61,20 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT,"/api/medecins/modifierMedecine/{id}").hasAnyRole(Role.ADMIN.name(),Role.MEDECIN.name())
                         .requestMatchers(HttpMethod.DELETE,"/api/medecins/supprimerMedecine/{id}").hasRole(Role.ADMIN.name())
 
+
                         .requestMatchers(HttpMethod.POST,"/api/dossierMedical/creeUnDossierMedical").hasRole(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.PUT,"/api/dossierMedical/ajouterDiagnostic/{id}").hasRole(Role.MEDECIN.name())
                         .requestMatchers(HttpMethod.PUT,"/api/dossierMedical/ajouterObservations/{id}").hasRole(Role.MEDECIN.name())
                         .requestMatchers(HttpMethod.GET,"/api/dossierMedical/consulterDossierMedical/{id}").hasRole(Role.MEDECIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/dossierMedical/getAllDossierMedical").hasRole(Role.ADMIN.name())
+
 
                         .requestMatchers(HttpMethod.POST,"/api/rendezVous/creeUnRendezVous").hasRole(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.GET,"/api/rendezVous/listerLesRendezVous").hasAnyRole(Role.ADMIN.name(),Role.MEDECIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/rendezVous/listerLesRendezVousPagination").hasAnyRole(Role.ADMIN.name(),Role.MEDECIN.name())
                         .requestMatchers(HttpMethod.PATCH,"/api/rendezVous/annulerRendezVous/{id}").hasRole(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.GET,"/api/rendezVous/findRendezVousByMedecine{id}").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/rendezVous/findRendezVousByPatient{id}").hasRole(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.PUT,"/api/rendezVous/modifierRendezVousById/{id}").hasRole(Role.ADMIN.name())
 
                         .anyRequest().authenticated()

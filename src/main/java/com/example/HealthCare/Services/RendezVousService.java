@@ -10,14 +10,17 @@ import com.example.HealthCare.Mapper.RendezVousMapper;
 import com.example.HealthCare.Models.Medecine;
 import com.example.HealthCare.Models.Patient;
 import com.example.HealthCare.Models.RenderVous;
+import com.example.HealthCare.Models.UserEntity;
 import com.example.HealthCare.Repositories.MedecinRepository;
 import com.example.HealthCare.Repositories.PatientRepository;
 import com.example.HealthCare.Repositories.RendezVousRepository;
+import com.example.HealthCare.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -35,6 +38,8 @@ public class RendezVousService {
     private PatientRepository patientRepository;
     @Autowired
     private MedecinRepository medecinRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
 
@@ -99,5 +104,26 @@ public class RendezVousService {
                 (renderVous -> {RendezVousResponseDTO rendezVousResponseDTO = rendezVousMapper.toDto(renderVous);
                     return rendezVousResponseDTO;})
         );
+    }
+
+    // ==================== PATIENT SPECIFIC ENDPOINTS ====================
+
+    /**
+     * Récupère tous les rendez-vous du patient actuellement connecté
+     */
+    public List<RendezVousResponseDTO> getMesRendezVous() {
+        UserEntity currentUser = getCurrentUser();
+        Patient patient = patientRepository.findByUser(currentUser)
+                .orElseThrow(() -> new ResourceNotFoundException("Profil patient non trouvé pour l'utilisateur connecté"));
+        return findRendezVousByPatient(patient.getId());
+    }
+
+    /**
+     * Récupère l'utilisateur actuellement connecté
+     */
+    private UserEntity getCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur non trouvé: " + username));
     }
 }

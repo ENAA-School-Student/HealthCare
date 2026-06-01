@@ -2,6 +2,7 @@ package com.example.HealthCare.Config;
 
 import com.example.HealthCare.DTO.AuthResponse;
 import com.example.HealthCare.DTO.UserAuthRequest;
+import com.example.HealthCare.Enums.Role;
 import com.example.HealthCare.Models.UserEntity;
 import com.example.HealthCare.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

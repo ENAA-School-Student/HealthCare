@@ -61,4 +61,27 @@ public class PatientController {
     public void supprimerPatient(@PathVariable int id){
         patientService.supprimerPatient(id);
     }
+
+    // ==================== PATIENT SPECIFIC ENDPOINTS ====================
+
+    /**
+     * Le patient consulte son profil
+     * Endpoint: GET /api/patients/mon-profil
+     * Accessible par: Les patients authentifiés
+     */
+    @GetMapping("/mon-profil")
+    public PatientResponseDTO getMonProfil() {
+        return patientService.getMonProfil();
+    }
+
+    /**
+     * Le patient modifie son profil (certaines informations personnelles)
+     * Endpoint: PUT /api/patients/modifier-profil
+     * Les patients peuvent modifier: nom, prénom, téléphone, dateNaissance
+     * Accessible par: Les patients authentifiés
+     */
+    @PutMapping("/modifier-profil")
+    public PatientResponseDTO modifierMonProfil(@RequestBody @Valid PatientRequestDTO patientDTO) {
+        return patientService.modifierMonProfil(patientDTO);
+    }
 }

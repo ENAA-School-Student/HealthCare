@@ -65,4 +65,16 @@ public class RendezVousController {
     public void modifierRendezVous(@PathVariable int id , @RequestBody @Valid RendezVousRequestDTO rendezVousDTO){
         rendezVousService.modifierRendezVous(id , rendezVousDTO);
     }
+
+    // ==================== PATIENT SPECIFIC ENDPOINTS ====================
+
+    /**
+     * Le patient consulte ses rendez-vous
+     * Endpoint: GET /api/rendezVous/mes-rendez-vous
+     * Accessible par: Les patients authentifiés
+     */
+    @GetMapping("/mes-rendez-vous")
+    public List<RendezVousResponseDTO> getMesRendezVous() {
+        return rendezVousService.getMesRendezVous();
+    }
 }

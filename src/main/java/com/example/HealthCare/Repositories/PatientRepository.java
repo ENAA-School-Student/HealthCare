@@ -15,4 +15,6 @@ public interface PatientRepository extends JpaRepository<Patient,Integer> {
     void deletePatientById(int id);
 
     Page<Patient> findAll(Pageable pageable);
+
+    Optional<Patient> findByUser(UserEntity user);
 }

@@ -45,6 +45,16 @@ public class DossierMedicalController {
         return dossierMedicalService.consulterUnDossierMedical(id);
     }
 
+    // ==================== PATIENT SPECIFIC ENDPOINTS ====================
 
+    /**
+     * Le patient consulte son dossier médical
+     * Endpoint: GET /api/dossierMedical/mon-dossier
+     * Accessible par: Les patients authentifiés
+     */
+    @GetMapping("/mon-dossier")
+    public DossierMedicalDTO getMonDossierMedical() {
+        return dossierMedicalService.getMonDossierMedical();
+    }
 
 }
