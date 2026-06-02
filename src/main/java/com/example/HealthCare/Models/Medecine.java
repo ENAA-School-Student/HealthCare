@@ -20,7 +20,7 @@ public class Medecine {
     private String email;
     private String specialite;
 
-    // Relation OneToOne avec UserEntity
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;

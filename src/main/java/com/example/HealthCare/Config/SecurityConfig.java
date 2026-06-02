@@ -32,21 +32,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
 
-                        // ===== PATIENT ENDPOINTS =====
-                        // Patients can view and modify their own profile
+
                         .requestMatchers(HttpMethod.GET,"/api/patients/mon-profil").hasRole(Role.PATIENT.name())
                         .requestMatchers(HttpMethod.PUT,"/api/patients/modifier-profil").hasRole(Role.PATIENT.name())
-                        // Patients cannot list all patients or view other patients
                         .requestMatchers(HttpMethod.GET,"/api/patients/listerLesPatients").hasRole(Role.ADMIN.name())
 
-                        // ===== RENDEZVOUS ENDPOINTS =====
-                        // Patients can view their own appointments
+                                .requestMatchers(HttpMethod.GET,"/api/patients/findPatientByDateLissance").hasRole(Role.ADMIN.name())
+
                         .requestMatchers(HttpMethod.GET,"/api/rendezVous/mes-rendez-vous").hasRole(Role.PATIENT.name())
 
-                        // ===== DOSSIER MEDICAL ENDPOINTS =====
-                        // Patients can view their own medical file
+
                         .requestMatchers(HttpMethod.GET,"/api/dossierMedical/mon-dossier").hasRole(Role.PATIENT.name())
-                        // Patients CANNOT modify medical files (only doctors can)
+
                         .requestMatchers(HttpMethod.POST,"/api/dossierMedical/ajouterDiagnostic/{id}").hasRole(Role.MEDECIN.name())
                         .requestMatchers(HttpMethod.POST,"/api/dossierMedical/ajouterObservations/{id}").hasRole(Role.MEDECIN.name())
 

@@ -78,3 +78,4 @@ public class RendezVousController {
         return rendezVousService.getMesRendezVous();
     }
 }
+

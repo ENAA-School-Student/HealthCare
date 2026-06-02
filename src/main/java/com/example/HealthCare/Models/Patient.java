@@ -23,7 +23,7 @@ public class Patient {
     private String telephone;
     private LocalDate dateNaissance;
 
-    // Relation OneToOne avec UserEntity
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
