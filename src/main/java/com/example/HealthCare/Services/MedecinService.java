@@ -10,6 +10,7 @@ import com.example.HealthCare.Models.Medecine;
 import com.example.HealthCare.Repositories.MedecinRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ public class MedecinService {
     private MedecinMapper medecinMapper;
 
 
+    @Cacheable(value = "MedecinsCache", key = "#pageNumber + '-' + #size")
     public Page<MedecinResponseDTO> findAllMedecinPagination(int pageNumber , int size) {
         Pageable pageable = PageRequest.of(pageNumber, size);
         return medecinRepository.findAll(pageable).map((medcin ->
@@ -50,17 +52,7 @@ public class MedecinService {
         return false;
     }
 
-    public List<MedecinResponseDTO> listerMedecine(){
-        List<Medecine> medecineList = medecinRepository.findAll();
-        return medecineList
-                .stream()
-                .map((medecine)->{
-                    MedecinResponseDTO medecinResponseDTO = medecinMapper.toDto(medecine);
-                    medecinResponseDTO.setTotalRendezVous(medecine.getRenderVousList().size());
-                    return medecinResponseDTO;
-                })
-                .toList();
-    }
+
 
     public MedecinResponseDTO modifierMedecine(int medecinId , MedecineRequestDTO medecinDTO){
         Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(() -> new ResourceNotFoundException("Medecin with ID " + medecinId + " Not Found !!"));

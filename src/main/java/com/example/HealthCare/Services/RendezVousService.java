@@ -16,6 +16,7 @@ import com.example.HealthCare.Repositories.PatientRepository;
 import com.example.HealthCare.Repositories.RendezVousRepository;
 import com.example.HealthCare.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -55,12 +56,10 @@ public class RendezVousService {
     }
 
 
-    public List<RendezVousResponseDTO> listerRendezVous(){
-        List<RenderVous> renderVousList = rendezVousRepository.findAll();
-        return rendezVousMapper.toDtoList(renderVousList);
-    }
 
 
+
+    @Cacheable(value = "livraisonCache", key = "#pageNumber + '-' + #size")
     public Page<RendezVousResponseDTO> findAll(int pageNumber , int size) {
         Pageable pageable = PageRequest.of(pageNumber, size);
         return rendezVousRepository.findAll(pageable).map((rendezVous ->

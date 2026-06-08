@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RendezVousResponseDTO {
+public class RendezVousResponseDTO implements Serializable {
     private int id;
     private LocalDate dateRendezVous;
     private RendezVousStatutEnum statut;

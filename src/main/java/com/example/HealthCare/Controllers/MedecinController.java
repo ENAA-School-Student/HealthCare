@@ -20,10 +20,6 @@ public class MedecinController {
     private MedecinService medecinService;
 
 
-    @GetMapping("/ListerMedecines")
-    public List<MedecinResponseDTO> afficherMedecins(){
-        return medecinService.listerMedecine();
-    }
 
 
     @GetMapping("/listerLesMedecinPagination")

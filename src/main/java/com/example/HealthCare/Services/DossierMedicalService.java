@@ -65,12 +65,9 @@ public class DossierMedicalService {
         return dossierMedicalMapper.toDto(dossierMedical);
     }
 
-    // ==================== PATIENT SPECIFIC ENDPOINTS ====================
 
-    /**
-     * Récupère le dossier médical du patient actuellement connecté
-     * Les patients ne peuvent consulter que leur propre dossier
-     */
+
+
     public DossierMedicalDTO getMonDossierMedical() {
         UserEntity currentUser = getCurrentUser();
         Patient patient = patientRepository.findByUser(currentUser)
@@ -82,9 +79,7 @@ public class DossierMedicalService {
         return dossierMedicalMapper.toDto(dossierMedical);
     }
 
-    /**
-     * Récupère l'utilisateur actuellement connecté
-     */
+
     private UserEntity getCurrentUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByUsername(username)

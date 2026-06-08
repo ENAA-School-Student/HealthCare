@@ -1,6 +1,6 @@
 package com.example.HealthCare.Services;
 
-
+import org.springframework.cache.annotation.Cacheable;
 import com.example.HealthCare.DTO.PatientRequestDTO;
 import com.example.HealthCare.DTO.PatientResponseDTO;
 import com.example.HealthCare.Exceptions.ResourceNotFoundException;
@@ -9,7 +9,6 @@ import com.example.HealthCare.Models.Patient;
 import com.example.HealthCare.Models.UserEntity;
 import com.example.HealthCare.Repositories.PatientRepository;
 import com.example.HealthCare.Repositories.UserRepository;
-import org.springframework.cglib.core.Local;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,6 +49,7 @@ public class PatientService {
 
 
 
+    @Cacheable(value = "usersCache", key = "#pageNumber + '-' + #size")
     public Page<PatientResponseDTO> findAll(int pageNumber , int size) {
         Pageable pageable = PageRequest.of(pageNumber, size);
         return patientRepository.findAll(pageable).map((patient ->
@@ -64,17 +64,7 @@ public class PatientService {
         return patientMapper.toDto(patientRepository.save(patient1));
     }
 
-    public List<PatientResponseDTO> listerPatients(){
-        List<Patient> patients = patientRepository.findAll();
-        return patients
-                .stream()
-                .map((patient)->{
-                    PatientResponseDTO dto = patientMapper.toDto(patient);
-                    dto.setTotalRendezVous(patient.getRenderVousList().size());
-                    return dto;
-                })
-                .toList();
-    }
+
 
     public Patient modifierPatient(int patientId, PatientRequestDTO newPatient){
         Patient patient = patientRepository.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient Not Found with id " + patientId));
