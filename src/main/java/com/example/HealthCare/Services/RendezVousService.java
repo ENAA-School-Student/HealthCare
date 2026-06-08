@@ -106,11 +106,8 @@ public class RendezVousService {
         );
     }
 
-    // ==================== PATIENT SPECIFIC ENDPOINTS ====================
 
-    /**
-     * Récupère tous les rendez-vous du patient actuellement connecté
-     */
+
     public List<RendezVousResponseDTO> getMesRendezVous() {
         UserEntity currentUser = getCurrentUser();
         Patient patient = patientRepository.findByUser(currentUser)
@@ -118,9 +115,7 @@ public class RendezVousService {
         return findRendezVousByPatient(patient.getId());
     }
 
-    /**
-     * Récupère l'utilisateur actuellement connecté
-     */
+
     private UserEntity getCurrentUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByUsername(username)

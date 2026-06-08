@@ -31,8 +31,8 @@ public class RendezVousController {
 
     @GetMapping("/listerLesRendezVousPagination")
     public Page<RendezVousResponseDTO> getAllProducts(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "2") int size) {
+            @RequestParam int page,
+            @RequestParam int size) {
         return rendezVousService.findAll(page,size);
     }
 

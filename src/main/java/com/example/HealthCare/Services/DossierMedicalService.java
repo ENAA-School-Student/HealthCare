@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -88,6 +89,17 @@ public class DossierMedicalService {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Utilisateur non trouvé: " + username));
+    }
+
+
+
+    public Page<DossierMedicalDTO> findDossierMedicalByDiagnostic(int page , int size,  String diagnostic){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.by("id")).ascending());
+        return  dossierMedicalRepository.findDossierMedicalByDiagnostic(pageable,diagnostic).map(
+                (dossierMedical -> {
+                    DossierMedicalDTO dossierMedicalDTO = dossierMedicalMapper.toDto(dossierMedical);
+                    return  dossierMedicalDTO;
+                }));
     }
 
 }

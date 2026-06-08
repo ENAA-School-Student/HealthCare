@@ -11,7 +11,7 @@ public enum Role {
 
     @JsonValue
     public String toJson() {
-        return name(); // serializes as "ADMIN"
+        return name();
     }
 
     @JsonCreator

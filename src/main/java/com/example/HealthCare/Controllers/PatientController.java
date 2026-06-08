@@ -29,9 +29,10 @@ public class PatientController {
     public Page<PatientResponseDTO> findPatientByDateLissance(
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             @RequestParam int page,
-            @RequestParam int size
+            @RequestParam int size,
+            @RequestParam String sortType
     ) {
-        return patientService.findPatientByDateLissance(date, page, size);
+        return patientService.findPatientByDateLissance(date, page, size,sortType);
     }
 
 
@@ -45,8 +46,8 @@ public class PatientController {
 
     @GetMapping("/listerLesPatientsPagination")
     public Page<PatientResponseDTO> getAllProducts(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "2") int size) {
+            @RequestParam int page,
+            @RequestParam int size) {
         return patientService.findAll(page,size);
     }
 

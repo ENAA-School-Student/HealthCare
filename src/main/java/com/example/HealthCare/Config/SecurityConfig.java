@@ -59,6 +59,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE,"/api/medecins/supprimerMedecine/{id}").hasRole(Role.ADMIN.name())
 
 
+                        .requestMatchers(HttpMethod.GET,"/api/dossierMedical/getDossierMedicalBydiagnostic").hasRole(Role.MEDECIN.name())
+
                         .requestMatchers(HttpMethod.POST,"/api/dossierMedical/creeUnDossierMedical").hasRole(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.PUT,"/api/dossierMedical/ajouterDiagnostic/{id}").hasRole(Role.MEDECIN.name())
                         .requestMatchers(HttpMethod.PUT,"/api/dossierMedical/ajouterObservations/{id}").hasRole(Role.MEDECIN.name())

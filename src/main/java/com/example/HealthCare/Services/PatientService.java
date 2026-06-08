@@ -36,8 +36,11 @@ public class PatientService {
 
 
 
-   public Page<PatientResponseDTO> findPatientByDateLissance(LocalDate date, int page , int size){
-       Pageable pageable =  PageRequest.of(page, size);
+   public Page<PatientResponseDTO> findPatientByDateLissance(LocalDate date, int page , int size,String sortType){
+       Sort sort = sortType.equalsIgnoreCase("desc")
+               ? Sort.by("dateNaissance").descending()
+               : Sort.by("dateNaissance").ascending();
+       Pageable pageable =  PageRequest.of(page, size,sort);
        return  patientRepository.findPatientsByDateNaissance(date , pageable).map(patient ->
        {
            PatientResponseDTO patientResponseDTO = patientMapper.toDto(patient);

@@ -28,8 +28,8 @@ public class MedecinController {
 
     @GetMapping("/listerLesMedecinPagination")
     public Page<MedecinResponseDTO> getAllProducts(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "2") int size) {
+            @RequestParam int page,
+            @RequestParam int size) {
         return medecinService.findAllMedecinPagination(page,size);
     }
 
