@@ -11,19 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Medecine {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Medecine extends UserEntity{
+
     private String nom;
     private String telephone;
-    private String email;
     private String specialite;
-
-
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
 
     @OneToMany(mappedBy = "medecine")
     private List<RenderVous> renderVousList;

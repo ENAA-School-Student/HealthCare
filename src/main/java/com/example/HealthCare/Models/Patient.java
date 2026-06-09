@@ -13,20 +13,15 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Patient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Patient extends UserEntity{
+
     private String nom;
     private String prenom;
-    private String email;
     private String telephone;
     private LocalDate dateNaissance;
 
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+
 
     @OneToMany(mappedBy = "patient")
     private List<RenderVous> renderVousList;

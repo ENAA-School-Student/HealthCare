@@ -47,21 +47,21 @@ public class DossierMedicalService {
     }
 
     public DossierMedicalDTO ajouterDiagnostic(int dossierMedicalId , String diagnostic){
-        DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new ResourceNotFoundException("Dossier medical with ID " + dossierMedicalId + " Not Found !!"));
+        DossierMedical dossierMedical = dossierMedicalRepository.findById((long) dossierMedicalId).orElseThrow(()-> new ResourceNotFoundException("Dossier medical with ID " + dossierMedicalId + " Not Found !!"));
         dossierMedical.setDiagnostic(diagnostic);
         dossierMedicalRepository.save(dossierMedical);
         return dossierMedicalMapper.toDto(dossierMedical);
     }
 
     public DossierMedicalDTO ajouterObservations(int dossierMedicalId , String observations){
-        DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new ResourceNotFoundException("Dossier medical with ID " + dossierMedicalId + " Not Found !!"));
+        DossierMedical dossierMedical = dossierMedicalRepository.findById((long) dossierMedicalId).orElseThrow(()-> new ResourceNotFoundException("Dossier medical with ID " + dossierMedicalId + " Not Found !!"));
         dossierMedical.setObservations(observations);
         dossierMedicalRepository.save(dossierMedical);
         return dossierMedicalMapper.toDto(dossierMedical);
     }
 
     public DossierMedicalDTO consulterUnDossierMedical(int dossierMedicalId){
-        DossierMedical dossierMedical = dossierMedicalRepository.findById(dossierMedicalId).orElseThrow(()-> new ResourceNotFoundException("Dossier medical with ID " + dossierMedicalId + " Not Found !!"));
+        DossierMedical dossierMedical = dossierMedicalRepository.findById((long) dossierMedicalId).orElseThrow(()-> new ResourceNotFoundException("Dossier medical with ID " + dossierMedicalId + " Not Found !!"));
         return dossierMedicalMapper.toDto(dossierMedical);
     }
 
@@ -70,7 +70,7 @@ public class DossierMedicalService {
 
     public DossierMedicalDTO getMonDossierMedical() {
         UserEntity currentUser = getCurrentUser();
-        Patient patient = patientRepository.findByUser(currentUser)
+        Patient patient = patientRepository.findById(currentUser.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Profil patient non trouvé pour l'utilisateur connecté"));
 
         DossierMedical dossierMedical = dossierMedicalRepository.findByPatient(patient)

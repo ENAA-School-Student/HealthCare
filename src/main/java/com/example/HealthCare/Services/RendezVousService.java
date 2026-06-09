@@ -45,8 +45,8 @@ public class RendezVousService {
 
 
     public RendezVousResponseDTO creeRendezVous(RendezVousRequestDTO rendezVousDTO){
-        Patient patient = patientRepository.findById(rendezVousDTO.getPatientId()).orElseThrow(() -> new ResourceNotFoundException("Paitent with ID " + rendezVousDTO.getPatientId() + " Not Found !!"));
-        Medecine medecine = medecinRepository.findById(rendezVousDTO.getMedecinId()).orElseThrow(() -> new ResourceNotFoundException("Medecin with ID " + rendezVousDTO.getMedecinId() + " Not Found !!"));
+        Patient patient = patientRepository.findById((long) rendezVousDTO.getPatientId()).orElseThrow(() -> new ResourceNotFoundException("Paitent with ID " + rendezVousDTO.getPatientId() + " Not Found !!"));
+        Medecine medecine = medecinRepository.findById((long) rendezVousDTO.getMedecinId()).orElseThrow(() -> new ResourceNotFoundException("Medecin with ID " + rendezVousDTO.getMedecinId() + " Not Found !!"));
         RenderVous renderVous = rendezVousMapper.toEntity(rendezVousDTO);
         if(patient != null && medecine != null){
             renderVous.setPatient(patient);
@@ -70,22 +70,22 @@ public class RendezVousService {
     }
 
     public RendezVousResponseDTO annulerRendezVous(int rendezVousId){
-        RenderVous renderVous = rendezVousRepository.findById(rendezVousId).orElseThrow(()->new ResourceNotFoundException("Rendez Vous with ID " + rendezVousId + " Not Found !!"));
+        RenderVous renderVous = rendezVousRepository.findById((long) rendezVousId).orElseThrow(()->new ResourceNotFoundException("Rendez Vous with ID " + rendezVousId + " Not Found !!"));
         renderVous.setStatut(RendezVousStatutEnum.ANNULE);
         return  rendezVousMapper.toDto(rendezVousRepository.save(renderVous));
     }
 
 
     public List<RendezVousResponseDTO> findRendezVousByMedecin(int medecineId){
-        return rendezVousMapper.toDtoList(rendezVousRepository.findByMedecine_Id(medecineId)) ;
+        return rendezVousMapper.toDtoList(rendezVousRepository.findByMedecine_Id((long) medecineId)) ;
     }
 
     public List<RendezVousResponseDTO> findRendezVousByPatient(int patientId){
-        return rendezVousMapper.toDtoList(rendezVousRepository.findByPatient_Id(patientId)) ;
+        return rendezVousMapper.toDtoList(rendezVousRepository.findByPatient_Id((long) patientId)) ;
     }
 
     public RendezVousResponseDTO modifierRendezVous(int rendezVousId , RendezVousRequestDTO newRendezVous){
-        RenderVous renderVous = rendezVousRepository.findById(rendezVousId).orElseThrow(()->new ResourceNotFoundException("Rendez Vous with ID " + rendezVousId + " Not Found !!"));
+        RenderVous renderVous = rendezVousRepository.findById((long) rendezVousId).orElseThrow(()->new ResourceNotFoundException("Rendez Vous with ID " + rendezVousId + " Not Found !!"));
         if(renderVous != null){
             renderVous.getPatient().setId(newRendezVous.getPatientId());
             renderVous.getMedecine().setId(newRendezVous.getMedecinId());
@@ -109,9 +109,9 @@ public class RendezVousService {
 
     public List<RendezVousResponseDTO> getMesRendezVous() {
         UserEntity currentUser = getCurrentUser();
-        Patient patient = patientRepository.findByUser(currentUser)
+        Patient patient = patientRepository.findById(currentUser.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Profil patient non trouvé pour l'utilisateur connecté"));
-        return findRendezVousByPatient(patient.getId());
+        return findRendezVousByPatient((int) patient.getId());
     }
 
 

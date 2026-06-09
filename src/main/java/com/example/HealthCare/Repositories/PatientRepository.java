@@ -14,14 +14,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface PatientRepository extends JpaRepository<Patient,Integer> {
-    void deletePatientById(int id);
+public interface PatientRepository extends JpaRepository<Patient,Long> {
+    void deletePatientById(long id);
 
     Page<Patient> findAll(Pageable pageable);
 
     Page<Patient> findPatientsByDateNaissance(LocalDate date , Pageable pageable);
 
-    Optional<Patient> findByUser(UserEntity user);
+    Optional<Patient> findById(Long id);
 
 
 }

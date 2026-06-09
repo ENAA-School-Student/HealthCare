@@ -19,11 +19,12 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "user_details")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private String username;
     private String email;
     private String password;

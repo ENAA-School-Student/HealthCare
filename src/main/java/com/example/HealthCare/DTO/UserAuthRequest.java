@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,4 +25,10 @@ public class UserAuthRequest {
     private Role role;
     @NotNull(message = "Password is mandatory")
     private String password;
+
+    private String telephone;
+    private String specialite;
+    private LocalDate dateNaissance;
+    private String nom;
+    private String prenom;
 }

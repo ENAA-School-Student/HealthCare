@@ -43,7 +43,7 @@ public class MedecinService {
         return medecinMapper.toDto(medecinRepository.save(medecine));
     }
 
-    public Boolean supprimerMedecine(int medecinId){
+    public Boolean supprimerMedecine(long medecinId){
         Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(() -> new ResourceNotFoundException("Medecin with ID " + medecinId + " Not Found !!"));
         if(medecine != null){
             medecinRepository.deleteById(medecinId);
@@ -54,7 +54,7 @@ public class MedecinService {
 
 
 
-    public MedecinResponseDTO modifierMedecine(int medecinId , MedecineRequestDTO medecinDTO){
+    public MedecinResponseDTO modifierMedecine(long medecinId , MedecineRequestDTO medecinDTO){
         Medecine medecine = medecinRepository.findById(medecinId).orElseThrow(() -> new ResourceNotFoundException("Medecin with ID " + medecinId + " Not Found !!"));
         if(medecine != null){
             medecine.setNom(medecinDTO.getNom());
@@ -65,5 +65,6 @@ public class MedecinService {
         }
         return null;
     }
+
 
 }

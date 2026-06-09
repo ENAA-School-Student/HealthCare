@@ -22,8 +22,6 @@ public class RendezVousController {
     private RendezVousService rendezVousService;
 
 
-
-
     @PostMapping("/creeUnRendezVous")
     public void creeRendezVous(@RequestBody @Valid RendezVousRequestDTO rendezVousDTO){
         rendezVousService.creeRendezVous(rendezVousDTO);
@@ -37,16 +35,14 @@ public class RendezVousController {
     }
 
 
-    @GetMapping("/listerLesRendezVous")
-    public List<RendezVousResponseDTO> listerDossierMedical(){
-        return rendezVousService.listerRendezVous();
-    }
+
 
 
     @PatchMapping("/annulerRendezVous/{id}")
     public RendezVousResponseDTO annulerRendezVous(@PathVariable int id){
         return  rendezVousService.annulerRendezVous(id);
     }
+
 
 
     @GetMapping("/findRendezVousByMedecine{id}")
@@ -66,13 +62,7 @@ public class RendezVousController {
         rendezVousService.modifierRendezVous(id , rendezVousDTO);
     }
 
-    // ==================== PATIENT SPECIFIC ENDPOINTS ====================
 
-    /**
-     * Le patient consulte ses rendez-vous
-     * Endpoint: GET /api/rendezVous/mes-rendez-vous
-     * Accessible par: Les patients authentifiés
-     */
     @GetMapping("/mes-rendez-vous")
     public List<RendezVousResponseDTO> getMesRendezVous() {
         return rendezVousService.getMesRendezVous();

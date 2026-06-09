@@ -66,7 +66,7 @@ public class PatientService {
 
 
 
-    public Patient modifierPatient(int patientId, PatientRequestDTO newPatient){
+    public Patient modifierPatient(long patientId, PatientRequestDTO newPatient){
         Patient patient = patientRepository.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient Not Found with id " + patientId));
         if(patient != null){
             patient.setNom(newPatient.getNom());
@@ -80,12 +80,12 @@ public class PatientService {
     }
 
 
-    public PatientResponseDTO consulterPatient(int patientId){
+    public PatientResponseDTO consulterPatient(long patientId){
         Patient patient = patientRepository.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient Not Found with id " + patientId));
         return patientMapper.toDto(patient);
     }
 
-    public Boolean supprimerPatient(int patientId){
+    public Boolean supprimerPatient(long patientId){
         Patient patient = patientRepository.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient Not Found with id " + patientId));
         if(patient != null){
             patientRepository.deleteById(patientId);
@@ -97,7 +97,7 @@ public class PatientService {
 
     public PatientResponseDTO getMonProfil() {
         UserEntity currentUser = getCurrentUser();
-        Patient patient = patientRepository.findByUser(currentUser)
+        Patient patient = patientRepository.findById(currentUser.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Profil patient non trouvé pour l'utilisateur connecté"));
         return patientMapper.toDto(patient);
     }
@@ -105,7 +105,7 @@ public class PatientService {
 
     public PatientResponseDTO modifierMonProfil(PatientRequestDTO patientRequestDTO) {
         UserEntity currentUser = getCurrentUser();
-        Patient patient = patientRepository.findByUser(currentUser)
+        Patient patient = patientRepository.findById(currentUser.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Profil patient non trouvé pour l'utilisateur connecté"));
 
         patient.setNom(patientRequestDTO.getNom());
