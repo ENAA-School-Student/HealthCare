@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -60,9 +61,9 @@ class RenderVousServiceTest {
 
     @Test
     void listerRendezVous() {
-        List<RendezVousResponseDTO> rendezVousResponseDTOS = rendezVousService.listerRendezVous();
+        Page<RendezVousResponseDTO> rendezVousResponseDTOS = rendezVousService.findAll(0,2);
         assertNotNull(rendezVousResponseDTOS);
-        assertTrue(rendezVousResponseDTOS.size() > 1);
+        assertTrue(rendezVousResponseDTOS.stream().count() > 1);
 
     }
 
