@@ -19,6 +19,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+
 @Service
 public class DossierMedicalService {
 
@@ -31,6 +33,8 @@ public class DossierMedicalService {
     private PatientRepository patientRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PdfGeneratorService pdfGeneratorService;
 
 
     public Page<DossierMedicalDTO> findAllDossierMedical(int page , int size){
@@ -40,6 +44,12 @@ public class DossierMedicalService {
                     DossierMedicalDTO dossierMedicalDTO = dossierMedicalMapper.toDto(dossierMedical);
                     return  dossierMedicalDTO;
                 }));
+    }
+
+    public ByteArrayInputStream exportDossierToPdf(int id) {
+        DossierMedical dossier = dossierMedicalRepository.findById((long) id)
+                .orElseThrow(() -> new ResourceNotFoundException("Dossier médical non trouvé avec l'ID " + id));
+        return pdfGeneratorService.generateDossierMedicalPdf(dossier);
     }
 
     public void ajouterDossierMedicalPourPatient(DossierMedicalRequestDTO dossieMedicalDTO){

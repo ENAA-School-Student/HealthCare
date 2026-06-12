@@ -9,8 +9,13 @@ import com.example.HealthCare.Services.RendezVousService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,6 +25,34 @@ public class RendezVousController {
 
     @Autowired
     private RendezVousService rendezVousService;
+
+    @GetMapping("/download/patient/{id}")
+    public ResponseEntity<InputStreamResource> downloadRendezVousByPatient(@PathVariable int id) {
+        ByteArrayInputStream bis = rendezVousService.exportRendezVousByPatientToPdf(id);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=rendez_vous_patient_" + id + ".pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
+    }
+
+    @GetMapping("/download/mes-rendez-vous")
+    public ResponseEntity<InputStreamResource> downloadMesRendezVous() {
+        ByteArrayInputStream bis = rendezVousService.exportMesRendezVousToPdf();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=mes_rendez_vous.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
+    }
 
 
     @PostMapping("/creeUnRendezVous")

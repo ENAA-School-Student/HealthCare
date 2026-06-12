@@ -24,6 +24,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,23 @@ public class RendezVousService {
     private MedecinRepository medecinRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PdfGeneratorService pdfGeneratorService;
+
+    public ByteArrayInputStream exportRendezVousByPatientToPdf(int patientId) {
+        Patient patient = patientRepository.findById((long) patientId)
+                .orElseThrow(() -> new ResourceNotFoundException("Patient non trouvé avec l'ID " + patientId));
+        List<RenderVous> appointments = rendezVousRepository.findByPatient_Id((long) patientId);
+        return pdfGeneratorService.generatePatientAppointmentsPdf(patient, appointments);
+    }
+
+    public ByteArrayInputStream exportMesRendezVousToPdf() {
+        UserEntity currentUser = getCurrentUser();
+        Patient patient = patientRepository.findById(currentUser.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Profil patient non trouvé pour l'utilisateur connecté"));
+        List<RenderVous> appointments = rendezVousRepository.findByPatient_Id(patient.getId());
+        return pdfGeneratorService.generatePatientAppointmentsPdf(patient, appointments);
+    }
 
 
 
