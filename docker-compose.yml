@@ -12,12 +12,16 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/healthCare?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3307/healthCare?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: "yourpassword"
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATA_REDIS_URL: redis://redis:6379
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
       SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_SSL : false
       SPRING_DATA_REDIS_PORT: 6379
+      JWT_SECRET : your_secret_key_must_be_at_least_32_characters_long_for_HS256_algorithm!
+      JWT_EXPIRATION : 36000000
     networks:
       - app_network
 
